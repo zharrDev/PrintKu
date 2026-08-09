@@ -1,0 +1,57 @@
+# ===== Node / npm =====
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.tgz
+
+# ===== Go (backend) =====
+backend/bin/
+backend/tmp/
+*.exe
+*.test
+*.out
+go.work
+
+# ===== Database & data =====
+backend/data/
+backend/data/*.db
+backend/data/*.db-wal
+backend/data/*.db-shm
+*.db
+*.db-wal
+*.db-shm
+
+# ===== Uploads (file hasil upload user) =====
+backend/uploads/
+uploads/
+
+# ===== Environment =====
+.env
+.env.local
+.env.*.local
+backend/.env
+backend/.env.local
+
+# ===== Frontend build / SvelteKit =====
+frontend/.svelte-kit/
+frontend/build/
+frontend/.svelte-kit/
+frontend/dist/
+frontend/build-log.txt
+
+# ===== Logs & OS =====
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# ===== Docker =====
+docker-compose.override.yml
+
+# ===== Tools bundel lokal =====
+.tools/

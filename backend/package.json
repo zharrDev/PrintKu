@@ -1,0 +1,12 @@
+{
+  "name": "printmart-backend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/go.mjs run ./cmd/server",
+    "start": "node scripts/go.mjs run ./cmd/server",
+    "build": "node scripts/go.mjs build -o bin/server ./cmd/server",
+    "seed": "node scripts/go.mjs run ./cmd/server -seed",
+    "smoke": "node scripts/go.mjs test ./internal/handler/ -run TestSmoke -v"
+  }
+}
