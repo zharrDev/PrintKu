@@ -15,7 +15,7 @@
   const services = [
     { icon: Printer, title: 'Print & Fotocopy', desc: 'Upload file (PDF, DOCX, JPG, PNG), sistem hitung harga otomatis per halaman.', href: '/print' },
     { icon: BookCopy, title: 'Jilid', desc: 'Spiral, lakban, hingga hardcover untuk skripsi dan laporan.', href: '/print' },
-    { icon: Lamination, title: 'Laminating', desc: 'Berbagai ukuran: A4, A3, sampai kartu — dokumen awet dan rapi.', href: '/print' },
+    { icon: Layers, title: 'Laminating', desc: 'Berbagai ukuran: A4, A3, sampai kartu — dokumen awet dan rapi.', href: '/print' },
     { icon: Scan, title: 'Scan Dokumen', desc: 'Scan fisik ke PDF dan siap dikirim ke email kamu.', href: '/print' },
   ];
 
