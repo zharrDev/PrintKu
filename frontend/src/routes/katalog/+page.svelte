@@ -34,7 +34,7 @@
 </script>
 
 <svelte:head>
-  <title>Katalog — PrintMart</title>
+  <title>Katalog — PrintKu</title>
 </svelte:head>
 
 <section class="band-hero">

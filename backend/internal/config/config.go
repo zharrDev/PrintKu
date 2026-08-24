@@ -30,16 +30,16 @@ func Load() *Config {
 	return &Config{
 		Port:                getInt("PORT", 8080),
 		AppEnv:              getStr("APP_ENV", "development"),
-		DatabasePath:        absPath(getStr("DATABASE_PATH", "./data/printmart.db")),
+		DatabasePath:        absPath(getStr("DATABASE_PATH", "./data/printku.db")),
 		RedisAddr:           getStr("REDIS_ADDR", "localhost:6379"),
-		JWTSecret:           getStr("JWT_SECRET", "printmart-dev-secret"),
+		JWTSecret:           getStr("JWT_SECRET", "printku-dev-secret"),
 		JWTExpiresIn:        getDuration("JWT_EXPIRES_IN", 24*time.Hour),
 		PaymentProvider:     getStr("PAYMENT_PROVIDER", "midtrans-sandbox"),
 		PaymentIsProduction: getBool("PAYMENT_IS_PRODUCTION"),
 		UploadDir:           absPath(getStr("UPLOAD_DIR", "./uploads")),
 		MaxUploadSizeMB:     getInt64("MAX_UPLOAD_SIZE_MB", 20),
 		CorsOrigin:          getStr("CORS_ORIGIN", "http://localhost:5173"),
-		AdminEmail:          getStr("ADMIN_EMAIL", "admin@printmart.local"),
+		AdminEmail:          getStr("ADMIN_EMAIL", "admin@printku.local"),
 		AdminPassword:       getStr("ADMIN_PASSWORD", "admin123"),
 	}
 }

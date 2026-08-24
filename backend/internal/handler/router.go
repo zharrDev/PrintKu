@@ -11,9 +11,9 @@ import (
 	"printmart/backend/pkg/websocket"
 )
 
-// NewRouter membangun *gin.Engine lengkap: CORS, static uploads, websocket,
-// dan seluruh route API. Dipakai oleh cmd/server dan smoke test agar wiring
-// selalu identik.
+// NewRouter membangun *gin.Engine lengkap: CORS, download endpoint (auth),
+// websocket, dan seluruh route API. Dipakai oleh cmd/server dan smoke test
+// agar wiring selalu identik.
 func NewRouter(db *sql.DB, cfg *config.Config, hub *websocket.Hub) *gin.Engine {
 	srv := NewServer(db, cfg, hub)
 
@@ -43,7 +43,8 @@ func NewRouter(db *sql.DB, cfg *config.Config, hub *websocket.Hub) *gin.Engine {
 		c.Next()
 	})
 
-	r.Static("/uploads", cfg.UploadDir)
+	// JANGAN expose uploads directory secara publik!
+	// Gunakan endpoint download yang membutuhkan authorization.
 	r.GET("/ws/orders/:userId", hub.ServeWS)
 
 	RegisterRoutes(r, srv)

@@ -26,7 +26,7 @@
   <aside class="sidebar">
     <a href="/admin" class="brand">
       <span class="brand-mark">P</span>
-      <span class="brand-name">PrintMart</span>
+      <span class="brand-name">PrintKu</span>
     </a>
     <nav class="side-nav">
       {#each links as l (l.href)}

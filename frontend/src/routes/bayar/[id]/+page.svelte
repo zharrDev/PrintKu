@@ -53,7 +53,7 @@
   }
 </script>
 
-<svelte:head><title>Pembayaran — PrintMart</title></svelte:head>
+<svelte:head><title>Pembayaran — PrintKu</title></svelte:head>
 
 <section class="band-hero">
   <div class="container">

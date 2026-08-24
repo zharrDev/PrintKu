@@ -24,7 +24,7 @@
   }
 </script>
 
-<svelte:head><title>Masuk — PrintMart</title></svelte:head>
+<svelte:head><title>Masuk — PrintKu</title></svelte:head>
 
 <section class="band-hero">
   <div class="container">
@@ -32,7 +32,7 @@
       <div class="auth-card card stack-lg">
         <div class="stack-sm">
           <span class="eyebrow">Akun</span>
-          <h1 class="display-md">Masuk ke PrintMart</h1>
+          <h1 class="display-md">Masuk ke PrintKu</h1>
           <p class="body-sm text-body">Lanjutkan belanja atau cek status print-mu.</p>
         </div>
         <form class="stack-md" onsubmit={(e) => { e.preventDefault(); submit(); }}>

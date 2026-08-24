@@ -62,7 +62,7 @@
   }
 </script>
 
-<svelte:head><title>Lacak Pesanan — PrintMart</title></svelte:head>
+<svelte:head><title>Lacak Pesanan — PrintKu</title></svelte:head>
 
 <section class="band-hero">
   <div class="container stack-xl">

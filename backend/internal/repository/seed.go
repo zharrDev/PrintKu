@@ -113,7 +113,7 @@ func seedAdmin(db *sql.DB, cfg *config.Config) error {
 		return err
 	}
 	_, err = db.Exec(`INSERT INTO users (id, name, email, password_hash, phone, role, created_at) VALUES (?, ?, ?, ?, ?, 'admin', ?)`,
-		UUID(), "Admin PrintMart", cfg.AdminEmail, string(hash), "0812-0000-0000", Now())
+		UUID(), "Admin PrintKu", cfg.AdminEmail, string(hash), "0812-0000-0000", Now())
 	log.Printf("[seed] Admin default dibuat: %s / %s", cfg.AdminEmail, cfg.AdminPassword)
 	return err
 }

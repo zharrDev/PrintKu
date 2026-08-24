@@ -23,7 +23,7 @@ import { PackageOpen, FileText, ArrowRight } from 'lucide-svelte';
   const TYPE_LABEL = { product: 'Produk', print: 'Jasa Print' };
 </script>
 
-<svelte:head><title>Pesanan Saya — PrintMart</title></svelte:head>
+<svelte:head><title>Pesanan Saya — PrintKu</title></svelte:head>
 
 <section class="band-hero">
   <div class="container stack-xl">

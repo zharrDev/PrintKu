@@ -63,7 +63,7 @@
   }
 </script>
 
-<svelte:head><title>Produk — Admin PrintMart</title></svelte:head>
+<svelte:head><title>Produk — Admin PrintKu</title></svelte:head>
 
 <div class="stack-xl">
   <div class="row-between wrap">

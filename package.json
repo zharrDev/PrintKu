@@ -2,7 +2,7 @@
   "name": "printmart",
   "version": "1.0.0",
   "private": true,
-  "description": "PrintMart - Toko ATK & Jasa Fotocopy Online",
+  "description": "PrintKu - Toko ATK & Jasa Fotocopy Online",
   "scripts": {
     "install:all": "npm --prefix frontend install",
     "seed": "npm --prefix backend run seed",

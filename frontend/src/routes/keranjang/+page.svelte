@@ -42,7 +42,7 @@
   }
 </script>
 
-<svelte:head><title>Keranjang — PrintMart</title></svelte:head>
+<svelte:head><title>Keranjang — PrintKu</title></svelte:head>
 
 <section class="band-hero">
   <div class="container stack-xl">

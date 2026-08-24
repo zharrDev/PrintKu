@@ -11,7 +11,7 @@
   let adding = $state(false);
 
   async function addToCart() {
-    if (!localStorage.getItem('printmart_token')) {
+    if (!localStorage.getItem('printku_token')) {
       toast('Silakan masuk dulu untuk berbelanja', 'error');
       goto('/masuk');
       return;

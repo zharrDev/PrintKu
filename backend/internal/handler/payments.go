@@ -102,11 +102,11 @@ func (s *Server) paymentWebhook(c *gin.Context) {
 		return
 	}
 
+	// Validasi status enum
+	validStatuses := map[string]bool{"success": true, "failed": true, "pending": true}
 	newStatus := "pending"
-	if body.Status == "success" {
-		newStatus = "success"
-	} else if body.Status == "failed" {
-		newStatus = "failed"
+	if validStatuses[body.Status] {
+		newStatus = body.Status
 	}
 	var paidAt any
 	if newStatus == "success" {
@@ -119,6 +119,11 @@ func (s *Server) paymentWebhook(c *gin.Context) {
 
 	var updatedOrder gin.H
 	if newStatus == "success" {
+		// Increment voucher used_count hanya saat payment sukses
+		if vcode := orderVoucherCode(s.DB, body.OrderID); vcode != "" {
+			s.DB.Exec(`UPDATE vouchers SET used_count = used_count + 1 WHERE UPPER(code) = ?`, vcode)
+		}
+
 		order := service.SetOrderStatus(s.DB, body.OrderID, "diproses", s.broadcast)
 		if order != nil {
 			repository.Notify(s.DB, order.UserID, body.OrderID,

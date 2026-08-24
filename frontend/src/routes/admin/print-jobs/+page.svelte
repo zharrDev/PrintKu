@@ -45,7 +45,7 @@
   }
 </script>
 
-<svelte:head><title>Print Jobs — Admin PrintMart</title></svelte:head>
+<svelte:head><title>Print Jobs — Admin PrintKu</title></svelte:head>
 
 <div class="stack-xl">
   <div class="stack-sm">

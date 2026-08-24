@@ -93,7 +93,7 @@
   }
 
   function finish() {
-    sessionStorage.setItem('printmart_draft_job', JSON.stringify({ printJob: quote.printJob, pricing: quote.pricing }));
+    sessionStorage.setItem('printku_draft_job', JSON.stringify({ printJob: quote.printJob, pricing: quote.pricing }));
     goto('/checkout');
   }
 
@@ -105,7 +105,7 @@
   }
 </script>
 
-<svelte:head><title>Jasa Print â€” PrintMart</title></svelte:head>
+<svelte:head><title>Jasa Print â€” PrintKu</title></svelte:head>
 
 <section class="band-hero">
   <div class="container stack-xl">

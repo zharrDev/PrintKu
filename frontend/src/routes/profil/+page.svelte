@@ -48,7 +48,7 @@
   }
 </script>
 
-<svelte:head><title>Profil — PrintMart</title></svelte:head>
+<svelte:head><title>Profil — PrintKu</title></svelte:head>
 
 <section class="band-hero">
   <div class="container stack-xl">

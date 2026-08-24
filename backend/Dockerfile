@@ -18,7 +18,7 @@ WORKDIR /app
 COPY --from=build /out/server /app/server
 
 ENV PORT=8080 \
-    DATABASE_PATH=/app/data/printmart.db \
+    DATABASE_PATH=/app/data/printku.db \
     UPLOAD_DIR=/app/uploads \
     APP_ENV=production
 

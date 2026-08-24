@@ -23,7 +23,7 @@ func RegisterRoutes(r *gin.Engine, s *Server) {
 	optional := middleware.OptionalAuth(s.Cfg)
 
 	r.GET("/api/health", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"status": "ok", "app": "printmart-api", "time": s.now()})
+		c.JSON(http.StatusOK, gin.H{"status": "ok", "app": "printku-api", "time": s.now()})
 	})
 
 	api := r.Group("/api")
@@ -44,6 +44,11 @@ func RegisterRoutes(r *gin.Engine, s *Server) {
 	products.POST("", auth, admin, s.createProduct)
 	products.PUT("/:id", auth, admin, s.updateProduct)
 	products.DELETE("/:id", auth, admin, s.deleteProduct)
+
+	// File download — membutuhkan authorization.
+	// User hanya dapat mengakses file miliknya atau file order miliknya.
+	files := api.Group("/files", auth)
+	files.GET("/download/:filename", s.downloadFile)
 
 	cart := api.Group("/cart", auth)
 	cart.GET("", s.getCart)
@@ -67,10 +72,15 @@ func RegisterRoutes(r *gin.Engine, s *Server) {
 	jobs.PATCH("/:id", auth, s.patchPrintJob)
 	jobs.PATCH("/:id/status", auth, admin, s.patchPrintJobStatus)
 
+	// Payment — sandbox create membutuhkan auth.
 	payments := api.Group("/payments", auth)
 	payments.POST("/create", s.createPayment)
-	payments.POST("/webhook", s.paymentWebhook)
 	payments.GET("/:orderId", s.getPayment)
+
+	// Payment webhook — TIDAK membutuhkan JWT user.
+	// Webhook dari payment gateway harus public, tapi nanti
+	// akan diverifikasi signature-nya (Phase 1).
+	api.POST("/payments/webhook", s.paymentWebhook)
 
 	notifications := api.Group("/notifications", auth)
 	notifications.GET("", s.listNotifications)

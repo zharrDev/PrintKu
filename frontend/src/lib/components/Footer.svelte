@@ -4,7 +4,7 @@
       <div class="stack-md">
         <a href="/" class="brand">
           <span class="brand-mark">P</span>
-          <span class="brand-name">PrintMart</span>
+          <span class="brand-name">PrintKu</span>
         </a>
         <p class="body-sm">
           Toko ATK & jasa fotocopy online. Upload file, pilih spesifikasi,
@@ -27,11 +27,11 @@
         <h4 class="footer-title">Kontak</h4>
         <span class="footer-link">Jl. Merdeka No. 88, Bandung</span>
         <span class="footer-link">0812-3456-7890</span>
-        <span class="footer-link">halo@printmart.id</span>
+        <span class="footer-link">halo@printku.id</span>
       </div>
     </div>
     <div class="footer-bottom">
-      <span class="caption">© {new Date().getFullYear()} PrintMart — Toko ATK & Jasa Fotocopy Online</span>
+      <span class="caption">© {new Date().getFullYear()} PrintKu — Toko ATK & Jasa Fotocopy Online</span>
       <span class="caption">Pembayaran: sandbox mode (midtrans-sandbox)</span>
     </div>
   </div>

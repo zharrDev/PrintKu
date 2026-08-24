@@ -2,7 +2,7 @@
 
 # Frontend SvelteKit — dijalankan via Vite dev server sehingga proxy
 # /api, /uploads, /ws otomatis diteruskan ke service backend (lihat
-# BACKEND_URL). Cocok untuk lingkungan sandbox/dev PrintMart.
+# BACKEND_URL). Cocok untuk lingkungan sandbox/dev PrintKu.
 FROM node:22-slim
 WORKDIR /app
 

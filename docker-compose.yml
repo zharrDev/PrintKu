@@ -1,4 +1,4 @@
-# PrintMart — Docker Compose (backend Go + frontend SvelteKit + Redis).
+# PrintKu — Docker Compose (backend Go + frontend SvelteKit + Redis).
 # Jalankan: docker compose up --build
 # Frontend: http://localhost:5173  |  API: http://localhost:8080
 
@@ -10,15 +10,15 @@ services:
     environment:
       PORT: "8080"
       APP_ENV: production
-      DATABASE_PATH: /app/data/printmart.db
+      DATABASE_PATH: /app/data/printku.db
       UPLOAD_DIR: /app/uploads
       REDIS_ADDR: redis:6379
-      JWT_SECRET: ${JWT_SECRET:-ganti_dengan_secret_yang_kuat_printmart_2024}
+      JWT_SECRET: ${JWT_SECRET:-ganti_dengan_secret_yang_kuat_printku_2024}
       JWT_EXPIRES_IN: 24h
       PAYMENT_PROVIDER: midtrans-sandbox
       PAYMENT_IS_PRODUCTION: "false"
       CORS_ORIGIN: http://localhost:5173
-      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@printmart.local}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@printku.local}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin123}
     volumes:
       - backend_data:/app/data

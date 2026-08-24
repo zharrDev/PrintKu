@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 
-export const TOKEN_KEY = 'printmart_token';
-export const USER_KEY = 'printmart_user';
+export const TOKEN_KEY = 'printku_token';
+export const USER_KEY = 'printku_user';
 
 export const userStore = writable(null);
 export const cartStore = writable({ items: [], total: 0 });

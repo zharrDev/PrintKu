@@ -17,7 +17,7 @@
   });
 
   async function addToCart() {
-    if (!localStorage.getItem('printmart_token')) {
+    if (!localStorage.getItem('printku_token')) {
       toast('Silakan masuk dulu untuk berbelanja', 'error');
       goto('/masuk');
       return;
@@ -33,7 +33,7 @@
 </script>
 
 <svelte:head>
-  <title>{product?.name ? `${product.name} — PrintMart` : 'Produk — PrintMart'}</title>
+  <title>{product?.name ? `${product.name} — PrintKu` : 'Produk — PrintKu'}</title>
 </svelte:head>
 
 <section class="band-hero">

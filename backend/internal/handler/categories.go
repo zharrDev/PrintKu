@@ -1,19 +1,25 @@
 package handler
 
-import "github.com/gin-gonic/gin"
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
 
 func (s *Server) listCategories(c *gin.Context) {
-	query := `SELECT * FROM categories ORDER BY name`
+	t := c.Query("type")
 	var rows []map[string]any
 	var err error
-	if t := c.Query("type"); t != "" {
-		rows, err = allRows(s.DB, query+" WHERE type = ?", t)
+
+	if t != "" {
+		// WHERE sebelum ORDER BY
+		rows, err = allRows(s.DB, `SELECT * FROM categories WHERE type = ? ORDER BY name`, t)
 	} else {
-		rows, err = allRows(s.DB, query)
+		rows, err = allRows(s.DB, `SELECT * FROM categories ORDER BY name`)
 	}
 	if err != nil {
 		s.jsonErr(c, err)
 		return
 	}
-	c.JSON(200, gin.H{"categories": rows})
+	c.JSON(http.StatusOK, gin.H{"categories": rows})
 }

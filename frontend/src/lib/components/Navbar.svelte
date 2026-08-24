@@ -24,15 +24,15 @@
 
   onMount(() => {
     loadSession();
-    if (typeof localStorage !== 'undefined' && localStorage.getItem('printmart_token')) refreshCart();
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('printku_token')) refreshCart();
   });
 </script>
 
 <nav class="nav">
   <div class="container nav-inner">
-    <a href="/" class="brand" aria-label="PrintMart beranda">
+    <a href="/" class="brand" aria-label="PrintKu beranda">
       <span class="brand-mark">P</span>
-      <span class="brand-name display-xs">PrintMart</span>
+      <span class="brand-name display-xs">PrintKu</span>
     </a>
 
     <div class="nav-links" class:open>

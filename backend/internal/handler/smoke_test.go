@@ -78,7 +78,7 @@ func TestSmoke(t *testing.T) {
 		UploadDir:       filepath.Join(tmp, "uploads"),
 		MaxUploadSizeMB: 20,
 		CorsOrigin:      "*",
-		AdminEmail:      "admin@printmart.local",
+		AdminEmail:      "admin@printku.local",
 		AdminPassword:   "admin123",
 	}
 
@@ -91,7 +91,7 @@ func TestSmoke(t *testing.T) {
 		t.Fatalf("seed: %v", err)
 	}
 
-	hub := wshub.NewHub()
+	hub := wshub.NewHub("smoke-test-secret", []string{"*"})
 	r := handler.NewRouter(db, cfg, hub)
 	ts := httptest.NewServer(r)
 	defer ts.Close()
@@ -145,7 +145,7 @@ func TestSmoke(t *testing.T) {
 		}
 		ok("login berhasil")
 
-		st, j = api("POST", "/api/auth/login", map[string]any{"email": "admin@printmart.local", "password": "admin123"}, "")
+		st, j = api("POST", "/api/auth/login", map[string]any{"email": "admin@printku.local", "password": "admin123"}, "")
 		if st != 200 {
 			t.Fatalf("login admin: status %d", st)
 		}
@@ -316,8 +316,8 @@ func TestSmoke(t *testing.T) {
 
 		api("POST", "/api/payments/webhook", map[string]any{"orderId": orderID, "status": "success"}, token)
 
-		// buka websocket lalu picu perubahan status
-		wsURL := "ws" + strings.TrimPrefix(ts.URL, "http") + "/ws/orders/" + userID
+		// buka websocket dengan autentikasi JWT lalu picu perubahan status
+		wsURL := "ws" + strings.TrimPrefix(ts.URL, "http") + "/ws/orders/" + userID + "?token=" + token
 		conn, _, err := gws.DefaultDialer.Dial(wsURL, nil)
 		if err != nil {
 			t.Fatalf("ws dial: %v", err)

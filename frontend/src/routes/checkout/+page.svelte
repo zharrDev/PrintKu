@@ -44,7 +44,7 @@
         applyAddress(addresses[0]);
       }
     }
-    const session = sessionStorage.getItem('printmart_draft_job');
+    const session = sessionStorage.getItem('printku_draft_job');
     if (session) {
       try {
         const job = JSON.parse(session);
@@ -107,7 +107,7 @@
     const r = await api('/orders', { method: 'POST', body });
     placing = false;
     if (r.ok) {
-      sessionStorage.removeItem('printmart_draft_job');
+      sessionStorage.removeItem('printku_draft_job');
       cartStore.set({ items: [], total: 0 });
       toast('Pesanan dibuat! Lanjutkan ke pembayaran.', 'success');
       goto(`/bayar/${r.json.order.id}`);
@@ -115,7 +115,7 @@
   }
 
   function rollbackToPrint() {
-    sessionStorage.removeItem('printmart_draft_job');
+    sessionStorage.removeItem('printku_draft_job');
     printOrderMode = false;
     printJobs = [];
     total = items.reduce((s, it) => s + it.price * it.quantity, 0);
@@ -123,7 +123,7 @@
   }
 </script>
 
-<svelte:head><title>Checkout — PrintMart</title></svelte:head>
+<svelte:head><title>Checkout — PrintKu</title></svelte:head>
 
 <section class="band-hero">
   <div class="container stack-xl">

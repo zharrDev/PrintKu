@@ -26,7 +26,7 @@
   }
 </script>
 
-<svelte:head><title>Daftar — PrintMart</title></svelte:head>
+<svelte:head><title>Daftar — PrintKu</title></svelte:head>
 
 <section class="band-hero">
   <div class="container">

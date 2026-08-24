@@ -33,7 +33,7 @@
 </script>
 
 <svelte:head>
-  <title>PrintMart — Toko ATK & Jasa Fotocopy Online</title>
+  <title>PrintKu — Toko ATK & Jasa Fotocopy Online</title>
   <meta
     name="description"
     content="Toko alat tulis kantor & jasa print, fotocopy, jilid, laminating online. Upload file dan hitung harga otomatis."

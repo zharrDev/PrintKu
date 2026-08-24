@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"database/sql"
 	"net/http"
 	"strings"
 
@@ -153,14 +154,10 @@ func (s *Server) createOrder(c *gin.Context) {
 	); err != nil {
 		s.jsonErr(c, err)
 		return
-	}
-
-	if voucherID != "" {
-		if _, err := tx.Exec(`UPDATE vouchers SET used_count = used_count + 1 WHERE id = ?`, voucherID); err != nil {
-			s.jsonErr(c, err)
-			return
-		}
-	}
+	}	// CATATAN: used_count voucher TIDAK diincrement di sini.
+	// Voucher hanya dianggap terpakai setelah payment sukses.
+	// Ini mencegah voucher terkuras oleh order yang belum dibayar.
+	_ = voucherID
 
 	if body.OrderType == "print" {
 		for _, jobID := range body.PrintJobIDs {
@@ -218,6 +215,12 @@ func (s *Server) createOrder(c *gin.Context) {
 }
 
 // voucherFromRow mengubah baris DB voucher menjadi struct service.Voucher.
+func orderVoucherCode(db *sql.DB, orderID string) string {
+	var code string
+	db.QueryRow(`SELECT voucher_code FROM orders WHERE id = ?`, orderID).Scan(&code)
+	return code
+}
+
 func voucherFromRow(v map[string]any) service.Voucher {
 	return service.Voucher{
 		Code:          toStr(v["code"]),

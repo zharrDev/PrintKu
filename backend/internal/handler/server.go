@@ -1,4 +1,4 @@
-// Package handler — HTTP handlers (controller) PrintMart API.
+// Package handler — HTTP handlers (controller) PrintKu API.
 package handler
 
 import (
@@ -39,7 +39,7 @@ func (s *Server) setOrderStatus(orderID, status string) {
 
 // --- helper transaksi untuk handler ---
 
-const txKey = "printmart_tx"
+const txKey = "printku_tx"
 
 func (s *Server) setTx(c *gin.Context, tx *sql.Tx) {
 	c.Set(txKey, tx)

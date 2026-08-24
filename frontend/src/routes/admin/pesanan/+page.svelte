@@ -43,7 +43,7 @@
   }
 </script>
 
-<svelte:head><title>Pesanan — Admin PrintMart</title></svelte:head>
+<svelte:head><title>Pesanan — Admin PrintKu</title></svelte:head>
 
 <div class="stack-xl">
   <div class="stack-sm">
