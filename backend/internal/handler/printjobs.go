@@ -80,23 +80,27 @@ func (s *Server) uploadFile(c *gin.Context) {
 		return
 	}
 
-	// Validasi MIME type dari header Content-Type
+	// Validasi MIME type dari header Content-Type.
+	// "application/octet-stream" dianggap "tidak diketahui" (curl / client
+	// generik) dan diloloskan ke validasi magic bytes di bawah.
 	mimeType := file.Header.Get("Content-Type")
 	if mimeType != "" {
 		// Ambil MIME type utama (tanpa parameter)
 		mainMime := strings.Split(mimeType, ";")[0]
 		mainMime = strings.TrimSpace(mainMime)
-		validMimes := allowedMimeTypes[ext]
-		mimeValid := false
-		for _, vm := range validMimes {
-			if mainMime == vm {
-				mimeValid = true
-				break
+		if mainMime != "application/octet-stream" {
+			validMimes := allowedMimeTypes[ext]
+			mimeValid := false
+			for _, vm := range validMimes {
+				if mainMime == vm {
+					mimeValid = true
+					break
+				}
 			}
-		}
-		if !mimeValid {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "MIME type tidak sesuai dengan ekstensi file"})
-			return
+			if !mimeValid {
+				c.JSON(http.StatusBadRequest, gin.H{"error": "MIME type tidak sesuai dengan ekstensi file"})
+				return
+			}
 		}
 	}
 
@@ -254,7 +258,7 @@ func (s *Server) createPrintJob(c *gin.Context) {
 		return
 	}
 	extNoDot := strings.TrimPrefix(strings.ToLower(filepath.Ext(body.FileURL)), ".")
-	pageCount := service.CountPages(extNoDot, data)
+	pageCount := int64(service.CountPages(extNoDot, data))
 
 	serviceRow, err := s.serviceFor(body.ColorMode)
 	if err != nil || serviceRow == nil {

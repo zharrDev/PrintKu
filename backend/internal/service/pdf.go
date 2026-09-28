@@ -13,32 +13,26 @@ const wordsPerPage = 350
 
 var (
 	rePage  = regexp.MustCompile(`(?i)/Type\s*/Page[^s]`)
-	rePages = regexp.MustCompile(`(?i)/Type\s*/Pages`)
 	reCount = regexp.MustCompile(`(?i)/Count\s+(\d+)`)
 	reTag   = regexp.MustCompile(`<[^>]+>`)
 )
 
 // CountPdfPages menghitung jumlah halaman PDF berbasis struktur objek.
-// Heuristik: jumlah "/Type /Page" (bukan /Pages) dikurangi,
+// Heuristik: jumlah "/Type /Page" (regex sudah mengecualikan "/Type /Pages"),
 // fallback ke nilai /Count pada objek /Pages, lalu fallback ke 1.
 func CountPdfPages(data []byte) int {
 	pages := len(rePage.FindAll(data, -1))
-	pagesCollections := len(rePages.FindAll(data, -1))
-	n := pages - pagesCollections
-	if n > 0 {
-		if n > maxPages {
+	if pages > 0 {
+		if pages > maxPages {
 			return maxPages
 		}
-		return n
+		return pages
 	}
 	if m := reCount.FindSubmatch(data); m != nil {
 		v := parseNum(m[1])
 		if v > 0 {
 			return min(v, maxPages)
 		}
-	}
-	if pages > 0 {
-		return min(pages, maxPages)
 	}
 	return 1
 }
