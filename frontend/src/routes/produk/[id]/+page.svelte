@@ -43,8 +43,8 @@
       <div class="detail-grid">
         <div class="thumb">
           <svg viewBox="0 0 400 300" aria-hidden="true">
-            <rect width="400" height="300" rx="12" fill="#f8f4f0" />
-            <text x="200" y="175" text-anchor="middle" font-size="100" font-weight="700" fill="#201515">
+            <rect width="400" height="300" rx="16" class="thumb-bg" />
+            <text x="200" y="175" text-anchor="middle" font-size="100" font-weight="700" class="thumb-fg">
               {product.name[0]}
             </text>
           </svg>
@@ -87,24 +87,40 @@
     gap: var(--space-3xl);
     align-items: start;
   }
-  .thumb svg { width: 100%; border-radius: var(--radius-md); }
-  .qty { display: inline-flex; align-items: center; border: 1px solid var(--ink); border-radius: var(--radius-sm); overflow: hidden; }
+  .thumb svg { width: 100%; border-radius: var(--radius-lg); }
+  /* Warna SVG lewat CSS supaya ikut token, bukan hard-coded hex. */
+  .thumb-bg { fill: var(--canvas-soft); }
+  .thumb-fg { fill: var(--ink); }
+  .qty {
+    display: inline-flex;
+    align-items: center;
+    border: var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--canvas);
+  }
   .qty-btn {
     background: var(--canvas);
     border: none;
     padding: var(--space-md);
+    min-width: 44px;
+    min-height: 44px;
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
     color: var(--ink);
+    transition: background-color var(--dur) var(--ease);
   }
-  .qty-btn:disabled { opacity: 0.4; }
+  .qty-btn:disabled { background: var(--mute); color: var(--canvas); cursor: not-allowed; }
   .qty-btn:hover:not(:disabled) { background: var(--canvas-soft); }
   .qty-input {
     width: 56px;
     border: none;
-    border-left: 1px solid var(--ink);
-    border-right: 1px solid var(--ink);
+    border-left: var(--border-thin);
+    border-right: var(--border-thin);
     text-align: center;
     font-size: 18px;
+    font-variant-numeric: tabular-nums;
     padding: var(--space-md) 0;
     background: var(--canvas);
     color: var(--ink);

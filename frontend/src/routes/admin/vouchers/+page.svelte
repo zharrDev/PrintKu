@@ -153,8 +153,8 @@
 </div>
 
 {#if modal}
-  <div class="overlay" role="presentation" onclick={() => (modal = false)}>
-    <div class="modal card stack-md" role="dialog" aria-modal="true" onclick={(e) => e.stopPropagation()}>
+    <div class="overlay" role="presentation" onclick={(e) => { if (e.target === e.currentTarget) modal = false; }}>
+      <div class="modal card stack-md" role="dialog" aria-modal="true" tabindex="-1">
       <div class="row-between">
         <h3 class="display-sub-sm">{editing ? 'Edit Voucher' : 'Tambah Voucher'}</h3>
         <button class="icon-btn" onclick={() => (modal = false)}><X size={18} /></button>
@@ -215,28 +215,5 @@
 <style>
   .stack-xs { display: flex; flex-direction: column; gap: 2px; }
   .clamp { max-width: 260px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .icon-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    border: 1px solid var(--mute);
-    background: var(--canvas);
-    border-radius: var(--radius-sm);
-    color: var(--ink);
-  }
-  .icon-btn:hover { border-color: var(--ink); }
-  .overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(32, 21, 21, 0.45);
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding: var(--space-4xl) var(--space-xl);
-    z-index: 80;
-    overflow-y: auto;
-  }
-  .modal { width: 100%; max-width: 560px; box-shadow: var(--shadow-soft); }
+  /* .icon-btn, .overlay, .modal sekarang global di app.css */
 </style>

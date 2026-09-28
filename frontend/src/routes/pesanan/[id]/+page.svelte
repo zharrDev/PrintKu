@@ -260,8 +260,8 @@
     border: 2px solid var(--mute);
     z-index: 1;
   }
-  .step.done .step-dot { background: var(--primary); border-color: var(--primary); }
-  .step.current .step-dot { box-shadow: 0 0 0 4px rgba(255, 79, 0, 0.25); }
+  .step.done .step-dot { background: var(--primary); border-color: var(--ink); }
+  .step.current .step-dot { box-shadow: var(--ring-primary); }
   .step-label { color: var(--body); font-weight: 500; }
   .step.done .step-label { color: var(--ink); font-weight: 600; }
   .track-grid {
@@ -270,9 +270,9 @@
     gap: var(--space-2xl);
     align-items: start;
   }
-  .job-row { border-bottom: 1px solid var(--mute); padding-bottom: var(--space-md); }
-  .prog { height: 6px; background: var(--canvas-soft); border-radius: var(--radius-pill); overflow: hidden; }
-  .prog-bar { height: 100%; background: var(--primary); border-radius: var(--radius-pill); transition: width 0.4s ease; }
+  .job-row { border-bottom: var(--border-thin); padding-bottom: var(--space-md); }
+  .prog { height: 8px; background: var(--canvas-soft); border-radius: var(--radius-pill); overflow: hidden; }
+  .prog-bar { height: 100%; background: var(--primary); border-radius: var(--radius-pill); transition: width var(--dur) var(--ease); }
   @media (max-width: 767px) {
     .track-grid { grid-template-columns: 1fr; }
     .timeline { flex-direction: column; gap: var(--space-md); }

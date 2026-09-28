@@ -115,11 +115,10 @@
   .pay-wrap { max-width: 520px; margin: 0 auto; }
   .pay-card {
     background: var(--canvas-soft);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     padding: var(--space-2xl);
-    box-shadow: var(--shadow-soft);
+    box-shadow: var(--shadow-md);
   }
   .va-row { border-bottom: 1px solid var(--mute); padding-bottom: var(--space-md); }
-  .spin { animation: spin2 0.9s linear infinite; }
-  @keyframes spin2 { to { transform: rotate(360deg); } }
+  /* .spinner global di app.css */
 </style>

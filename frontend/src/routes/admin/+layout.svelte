@@ -33,7 +33,7 @@
         <a
           href={l.href}
           class="side-link"
-          class:side-active={l.exact ? page.url.pathname === l.href : page.url.pathname.startsWith(l.href)}
+          aria-current={l.exact ? page.url.pathname === l.href : page.url.pathname.startsWith(l.href) ? 'page' : undefined}
         >
           <l.icon size={18} />
           {l.label}
@@ -41,9 +41,7 @@
       {/each}
     </nav>
     <div class="side-bottom">
-      <span class="caption text-body-mid" style="padding: 0 var(--space-lg)">
-        {$userStore?.name}
-      </span>
+      <span class="caption side-user">{$userStore?.name}</span>
       <button class="side-link" onclick={() => { clearSession(); goto('/'); }}>
         <LogOut size={18} /> Keluar
       </button>
@@ -58,12 +56,12 @@
 <style>
   .admin-shell {
     display: grid;
-    grid-template-columns: 240px 1fr;
+    grid-template-columns: 260px 1fr;
     min-height: calc(100vh - 100px);
   }
   .sidebar {
     background: var(--canvas-soft);
-    border-right: 1px solid var(--mute);
+    border-right: var(--border);
     padding: var(--space-xl) 0;
     display: flex;
     flex-direction: column;
@@ -79,42 +77,36 @@
     padding: 0 var(--space-xl);
   }
   .brand-mark {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     border-radius: var(--radius-sm);
     background: var(--primary);
     color: var(--on-primary);
+    border: var(--border);
+    box-shadow: var(--shadow-sm);
     font-weight: 700;
-    font-size: 18px;
+    font-size: 20px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
   }
-  .brand-name { font-size: 18px; font-weight: 700; }
-  .side-nav { display: flex; flex-direction: column; gap: var(--space-xs); padding: 0 var(--space-md); }
-  .side-link {
+  .brand-name { font-size: 20px; font-weight: 700; }
+  .side-nav {
     display: flex;
-    align-items: center;
-    gap: var(--space-md);
-    padding: var(--space-md) var(--space-lg);
-    border-radius: var(--radius-sm);
-    color: var(--ink);
-    font-size: 16px;
-    line-height: 24px;
-    background: var(--canvas);
-    border: 1px solid transparent;
-  }
-  .side-link:hover { background: var(--canvas); border-color: var(--mute); }
-  .side-active {
-    background: var(--canvas);
-    border-left: 3px solid var(--primary);
-    font-weight: 600;
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding: 0 var(--space-lg);
   }
   .side-bottom {
     margin-top: auto;
     display: flex;
     flex-direction: column;
     gap: var(--space-sm);
+  }
+  .side-user {
+    padding: 0 var(--space-lg);
+    font-weight: 600;
+    color: var(--ink);
   }
   .admin-main { padding: var(--space-3xl) var(--space-2xl); }
   @media (max-width: 767px) {
@@ -124,6 +116,8 @@
       height: auto;
       flex-direction: row;
       align-items: center;
+      border-right: none;
+      border-bottom: var(--border);
       overflow-x: auto;
       padding: var(--space-md);
     }

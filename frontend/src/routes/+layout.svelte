@@ -3,6 +3,8 @@
   import '../../node_modules/@fontsource/inter/500.css';
   import '../../node_modules/@fontsource/inter/600.css';
   import '../../node_modules/@fontsource/inter/700.css';
+  import '../../node_modules/@fontsource/space-grotesk/600.css';
+  import '../../node_modules/@fontsource/space-grotesk/700.css';
   import '../app.css';
   import Navbar from '$lib/components/Navbar.svelte';
   import Footer from '$lib/components/Footer.svelte';

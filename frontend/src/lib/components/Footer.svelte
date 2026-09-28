@@ -41,7 +41,7 @@
   .footer {
     background: var(--ink);
     color: var(--canvas-soft);
-    padding: var(--space-3xl) var(--space-xl);
+    padding: var(--section-pad) var(--space-xl);
     margin-top: var(--space-4xl);
   }
   .footer-grid {
@@ -56,13 +56,14 @@
     color: var(--canvas-soft);
   }
   .brand-mark {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     border-radius: var(--radius-sm);
     background: var(--primary);
     color: var(--on-primary);
+    border: 2px solid var(--canvas-soft);
     font-weight: 700;
-    font-size: 18px;
+    font-size: 20px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -70,20 +71,29 @@
   .brand-name { font-size: 20px; font-weight: 600; }
   .footer-title {
     color: var(--canvas-soft);
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     letter-spacing: 1px;
     text-transform: uppercase;
     margin-bottom: var(--space-sm);
   }
-  .footer-link { color: var(--canvas-soft); opacity: 0.8; font-size: 16px; line-height: 24px; }
+  .footer-link {
+    color: var(--canvas-soft);
+    opacity: 0.8;
+    font-size: 16px;
+    line-height: 24px;
+    min-height: var(--touch-min);
+    display: inline-flex;
+    align-items: center;
+  }
+  a.footer-link { transition: color var(--dur) var(--ease); }
   a.footer-link:hover { opacity: 1; color: var(--primary); }
   .footer-bottom {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: var(--space-md);
-    border-top: 1px solid rgba(248, 244, 240, 0.15);
+    border-top: var(--divider-invert);
     margin-top: var(--space-3xl);
     padding-top: var(--space-xl);
   }

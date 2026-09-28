@@ -305,20 +305,29 @@
     gap: var(--space-xs);
     text-align: left;
     background: var(--canvas-soft);
-    border: 1px solid var(--mute);
+    border: var(--border);
     border-radius: var(--radius-md);
     padding: var(--space-lg);
     color: var(--ink);
-    transition: all 0.12s ease;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--dur) var(--ease),
+                box-shadow var(--dur) var(--ease),
+                background-color var(--dur) var(--ease),
+                border-color var(--dur) var(--ease);
   }
-  .method-card:hover { border-color: var(--ink); }
-  .method-active { border-color: var(--ink); background: var(--canvas); box-shadow: inset 0 0 0 1px var(--ink); }
+  .method-card:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-md); }
+  .method-active {
+    border-color: var(--ink);
+    background: var(--primary);
+    color: var(--on-primary);
+    box-shadow: var(--shadow-md);
+  }
   .summary { position: sticky; top: 96px; }
-  .stack-xs { display: flex; flex-direction: column; gap: 2px; }
+  .stack-xs { display: flex; flex-direction: column; gap: var(--space-xxs); }
   .clamp { max-width: 180px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .voucher-applied {
-    background: var(--canvas-soft);
-    border: 1px dashed var(--primary);
+    background: var(--success-soft);
+    border: var(--border);
     border-radius: var(--radius-sm);
     padding: var(--space-sm) var(--space-md);
   }
@@ -326,15 +335,20 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 30px;
-    height: 30px;
+    width: var(--touch-min);
+    height: var(--touch-min);
     flex-shrink: 0;
-    border: 1px solid var(--mute);
+    border: var(--border);
     background: var(--canvas);
     border-radius: var(--radius-sm);
     color: var(--ink);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--dur) var(--ease),
+                box-shadow var(--dur) var(--ease),
+                background-color var(--dur) var(--ease);
   }
-  .icon-btn:hover { border-color: var(--ink); }
+  .icon-btn:hover { background: var(--canvas-soft); transform: translate(-2px, -2px); }
+  .icon-btn:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--ink); }
   @media (max-width: 767px) {
     .checkout-grid { grid-template-columns: 1fr; }
     .summary { position: static; }

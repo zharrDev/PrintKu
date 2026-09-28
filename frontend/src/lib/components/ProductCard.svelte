@@ -26,16 +26,12 @@
   }
 </script>
 
-<div class="card product-card">
+<div class="card card-hover product-card">
   <a href={`/produk/${product.id}`}>
     <div class="thumb">
       <svg viewBox="0 0 64 64" aria-hidden="true">
-        <rect width="64" height="64" rx="6" fill="#f8f4f0" />
-        {#if product.image_url}
-          <text x="32" y="44" text-anchor="middle" font-size="26" font-weight="700" fill="#201515">{product.name[0]}</text>
-        {:else}
-          <text x="32" y="44" text-anchor="middle" font-size="26" font-weight="700" fill="#201515">{product.name[0]}</text>
-        {/if}
+        <rect width="64" height="64" rx="8" class="thumb-bg" />
+        <text x="32" y="44" text-anchor="middle" font-size="26" font-weight="700" class="thumb-fg">{product.name[0]}</text>
       </svg>
     </div>
     <div class="stack-sm body">
@@ -61,9 +57,11 @@
 </div>
 
 <style>
-  .product-card { display: flex; flex-direction: column; gap: var(--space-lg); transition: box-shadow 0.15s ease; }
-  .product-card:hover { box-shadow: var(--shadow-soft); }
+  .product-card { display: flex; flex-direction: column; gap: var(--space-lg); }
   .thumb svg { width: 100%; aspect-ratio: 1.6; border-radius: var(--radius-sm); }
+  /* Warna SVG lewat CSS supaya ikut token, bukan hard-coded hex. */
+  .thumb-bg { fill: var(--canvas); }
+  .thumb-fg { fill: var(--ink); }
   .clamp {
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -72,22 +70,35 @@
   }
   .price { color: var(--ink); }
   .actions { margin-top: auto; }
-  .qty { display: inline-flex; align-items: center; border: 1px solid var(--ink); border-radius: var(--radius-sm); overflow: hidden; }
+  .qty {
+    display: inline-flex;
+    align-items: center;
+    border: var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--canvas);
+  }
   .qty-btn {
     background: var(--canvas);
     border: none;
     padding: var(--space-sm);
+    min-width: 36px;
+    min-height: 36px;
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
     color: var(--ink);
+    transition: background-color var(--dur) var(--ease);
   }
   .qty-btn:hover { background: var(--canvas-soft); }
   .qty-input {
-    width: 44px;
+    width: 48px;
     border: none;
-    border-left: 1px solid var(--ink);
-    border-right: 1px solid var(--ink);
+    border-left: var(--border-thin);
+    border-right: var(--border-thin);
     text-align: center;
     font-size: 16px;
+    font-variant-numeric: tabular-nums;
     padding: var(--space-sm) 0;
     background: var(--canvas);
     color: var(--ink);

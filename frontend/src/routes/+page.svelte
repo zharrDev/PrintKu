@@ -193,18 +193,25 @@
     width: 100%;
     max-width: 380px;
     background: var(--canvas-soft);
-    border-radius: var(--radius-md);
+    border: var(--border);
+    border-radius: var(--radius-lg);
     padding: var(--space-xl);
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
-    box-shadow: var(--shadow-soft);
+    box-shadow: var(--shadow-lg);
     transform: rotate(1.5deg);
   }
-  .mock-row { padding: var(--space-sm) 0; border-bottom: 1px solid var(--mute); }
-  .service-card { transition: transform 0.15s ease, box-shadow 0.15s ease; }
-  .service-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-soft); }
-  .strong-price { color: var(--ink); }
+  .mock-row { padding: var(--space-sm) 0; border-bottom: var(--border-thin); }
+  .service-card {
+    transition: transform var(--dur) var(--ease),
+                box-shadow var(--dur) var(--ease),
+                background-color var(--dur) var(--ease);
+  }
+  .service-card:hover {
+    transform: translate(-2px, -2px) rotate(1.5deg);
+    box-shadow: var(--shadow-lg);
+  }
   .on-primary { color: var(--on-primary) !important; }
   @media (max-width: 1023px) {
     .hero-grid { grid-template-columns: 1fr; }

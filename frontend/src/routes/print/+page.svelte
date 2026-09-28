@@ -325,7 +325,7 @@
   }
   .dropzone {
     border: 2px dashed var(--ink);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     background: var(--canvas-soft);
     padding: var(--space-4xl) var(--space-xl);
     display: flex;
@@ -334,9 +334,11 @@
     gap: var(--space-md);
     text-align: center;
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: background-color var(--dur) var(--ease),
+                border-color var(--dur) var(--ease),
+                transform var(--dur) var(--ease);
   }
-  .dropzone:hover { background: var(--canvas); }
+  .dropzone:hover { background: var(--canvas); transform: translate(-2px, -2px); }
   .dropzone.dragover { background: var(--canvas); border-color: var(--primary); }
   .hidden-input { display: none; }
   .spec-grid {
@@ -352,14 +354,23 @@
     gap: var(--space-xs);
     text-align: left;
     background: var(--canvas);
-    border: 1px solid var(--mute);
+    border: var(--border);
     border-radius: var(--radius-md);
     padding: var(--space-lg);
     color: var(--ink);
-    transition: all 0.12s ease;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--dur) var(--ease),
+                box-shadow var(--dur) var(--ease),
+                background-color var(--dur) var(--ease),
+                border-color var(--dur) var(--ease);
   }
-  .opt-card:hover { border-color: var(--ink); }
-  .opt-active { border-color: var(--primary); box-shadow: inset 0 0 0 1px var(--primary); }
+  .opt-card:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-md); }
+  .opt-active {
+    background: var(--primary);
+    border-color: var(--ink);
+    color: var(--on-primary);
+    box-shadow: var(--shadow-md);
+  }
   .duplex-btn {
     width: 100%;
     text-align: left;
@@ -367,46 +378,74 @@
     flex-direction: column;
     gap: var(--space-xs);
     background: var(--canvas);
-    border: 1px solid var(--mute);
+    border: var(--border);
     border-radius: var(--radius-md);
     padding: var(--space-md) var(--space-lg);
     color: var(--ink);
     margin-bottom: var(--space-lg);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--dur) var(--ease),
+                box-shadow var(--dur) var(--ease),
+                background-color var(--dur) var(--ease);
   }
-  .duplex-btn.opt-active { border-color: var(--primary); box-shadow: inset 0 0 0 1px var(--primary); }
-  .qty { display: inline-flex; align-items: center; border: 1px solid var(--ink); border-radius: var(--radius-sm); overflow: hidden; margin-left: auto; }
+  .duplex-btn.opt-active {
+    background: var(--primary);
+    border-color: var(--ink);
+    color: var(--on-primary);
+    box-shadow: var(--shadow-md);
+  }
+  .qty {
+    display: inline-flex;
+    align-items: center;
+    border: var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin-left: auto;
+    background: var(--canvas);
+  }
   .qty-btn {
     background: var(--canvas);
     border: none;
     padding: var(--space-sm);
+    min-width: 36px;
+    min-height: 36px;
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
     color: var(--ink);
+    transition: background-color var(--dur) var(--ease);
   }
   .qty-btn:hover { background: var(--canvas-soft); }
   .qty-input {
     width: 48px;
     border: none;
-    border-left: 1px solid var(--ink);
-    border-right: 1px solid var(--ink);
+    border-left: var(--border-thin);
+    border-right: var(--border-thin);
     text-align: center;
     font-size: 16px;
+    font-variant-numeric: tabular-nums;
     padding: var(--space-sm) 0;
     background: var(--canvas);
     color: var(--ink);
   }
   .chip {
-    border: 1px solid var(--mute);
+    border: var(--border);
     background: var(--canvas);
     color: var(--ink);
     border-radius: var(--radius-pill);
     padding: var(--space-xs) var(--space-lg);
     font-size: 16px;
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+    transition: background-color var(--dur) var(--ease),
+                border-color var(--dur) var(--ease),
+                color var(--dur) var(--ease);
   }
   .chip-active { background: var(--ink); color: var(--on-primary); border-color: var(--ink); }
   .quote-card { position: sticky; top: 96px; }
   .summary-wrap { max-width: 560px; margin: 0 auto; }
-  .spin { animation: rot 0.9s linear infinite; }
-  @keyframes rot { to { transform: rotate(360deg); } }
+  /* .spinner global di app.css */
   @media (max-width: 767px) {
     .spec-grid { grid-template-columns: 1fr; }
     .quote-card { position: static; }

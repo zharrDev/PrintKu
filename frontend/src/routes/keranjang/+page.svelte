@@ -66,9 +66,9 @@
           {#each items as it (it.cart_item_id)}
             <div class="cart-item">
               <div class="item-thumb">
-                <svg viewBox="0 0 64 48">
-                  <rect width="64" height="48" rx="6" fill="#fffefb" />
-                  <text x="32" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#201515">{it.name[0]}</text>
+                <svg viewBox="0 0 64 48" aria-hidden="true">
+                  <rect width="64" height="48" rx="8" class="thumb-bg" />
+                  <text x="32" y="34" text-anchor="middle" font-size="20" font-weight="700" class="thumb-fg">{it.name[0]}</text>
                 </svg>
               </div>
               <div class="stack-sm" style="flex: 1; min-width: 0">

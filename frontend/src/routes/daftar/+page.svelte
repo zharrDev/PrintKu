@@ -68,5 +68,5 @@
 
 <style>
   .auth-wrap { max-width: 440px; margin: 0 auto; }
-  .auth-card { box-shadow: var(--shadow-soft); }
+  .auth-card { box-shadow: var(--shadow-md); }
 </style>

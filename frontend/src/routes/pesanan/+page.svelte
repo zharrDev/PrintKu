@@ -78,6 +78,6 @@ import { PackageOpen, FileText, ArrowRight } from 'lucide-svelte';
 </section>
 
 <style>
-  .order-row { transition: box-shadow 0.15s ease; }
-  .order-row:hover { box-shadow: var(--shadow-soft); }
+  .order-row { transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
+.order-row:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-lg); }
 </style>

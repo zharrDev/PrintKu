@@ -119,7 +119,10 @@
     padding: var(--space-xs) var(--space-lg);
     font-size: 16px;
     line-height: 24px;
-    transition: all 0.12s ease;
+    transition: background-color var(--dur) var(--ease),
+                border-color var(--dur) var(--ease),
+                color var(--dur) var(--ease),
+                transform var(--dur) var(--ease);
   }
   .chip:hover { border-color: var(--ink); }
   .chip-active {
