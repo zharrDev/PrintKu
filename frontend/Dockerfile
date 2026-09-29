@@ -6,11 +6,13 @@
 FROM node:22-slim
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm install
+# Aktifkan pnpm via corepack (bundled dengan Node), lalu install sesuai lockfile.
+RUN corepack enable
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+RUN pnpm install --frozen-lockfile
 
 COPY . .
 
 ENV BACKEND_URL=http://backend:8080
 EXPOSE 5173
-CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+CMD ["pnpm", "dev", "--", "--host", "0.0.0.0"]

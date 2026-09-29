@@ -1,0 +1,7 @@
+# Setting pnpm untuk project PrintKu frontend.
+# pnpm >= 10 memblokir build script dependency secara default (strictDepBuilds)
+# dan menjadikannya error fatal. esbuild memang tidak butuh postinstall binary
+# lagi (binary-nya datang dari paket platform @esbuild/win32-x64), tapi tetap
+# harus di-allow agar `pnpm build` tidak gagal.
+allowBuilds:
+  esbuild: true

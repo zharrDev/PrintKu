@@ -1,10 +1,11 @@
 <script>
-  import '../../node_modules/@fontsource/inter/400.css';
-  import '../../node_modules/@fontsource/inter/500.css';
-  import '../../node_modules/@fontsource/inter/600.css';
-  import '../../node_modules/@fontsource/inter/700.css';
-  import '../../node_modules/@fontsource/space-grotesk/600.css';
-  import '../../node_modules/@fontsource/space-grotesk/700.css';
+  // Bare import (bukan path relatif ke node_modules) — aman untuk npm & pnpm.
+  import '@fontsource/inter/400.css';
+  import '@fontsource/inter/500.css';
+  import '@fontsource/inter/600.css';
+  import '@fontsource/inter/700.css';
+  import '@fontsource/space-grotesk/600.css';
+  import '@fontsource/space-grotesk/700.css';
   import '../app.css';
   import Navbar from '$lib/components/Navbar.svelte';
   import Footer from '$lib/components/Footer.svelte';
