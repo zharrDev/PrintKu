@@ -134,7 +134,7 @@
               <td class="body-sm-strong">{discountLabel(v)}</td>
               <td class="body-sm">{v.min_spend > 0 ? formatRupiah(v.min_spend) : '—'}</td>
               <td class="body-sm">{v.used_count}{v.usage_limit > 0 ? ` / ${v.usage_limit}` : ''}</td>
-              <td class="body-sm">{v.valid_until ? String(v.valid_until).slice(0, 10) : '∞'}</td>
+              <td class="body-sm">{v.valid_until ? String(v.valid_until).slice(0, 10) : '—'}</td>
               <td>
                 <span class="badge" class:badge-primary={!v.is_active}>{v.is_active ? 'Aktif' : 'Nonaktif'}</span>
               </td>

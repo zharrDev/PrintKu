@@ -50,7 +50,7 @@
     uploading = false;
     if (r.ok) {
       upload = r.json.upload;
-      toast(`File diterima â€” ${upload.pageCount} halaman terdeteksi`, 'success');
+      toast(`File diterima — ${upload.pageCount} halaman terdeteksi`, 'success');
       step = 2;
     }
   }
@@ -105,7 +105,7 @@
   }
 </script>
 
-<svelte:head><title>Jasa Print â€” PrintKu</title></svelte:head>
+<svelte:head><title>Jasa Print — PrintKu</title></svelte:head>
 
 <section class="band-hero">
   <div class="container stack-xl">
@@ -117,9 +117,9 @@
 
     <!-- Steps indicator -->
     <div class="row steps">
-      <span class="step-item" class:active={step >= 1}>1 Â· Upload</span>
-      <span class="step-item" class:active={step >= 2}>2 Â· Spesifikasi</span>
-      <span class="step-item" class:active={step >= 3}>3 Â· Ringkasan</span>
+      <span class="step-item" class:active={step >= 1}>1 · Upload</span>
+      <span class="step-item" class:active={step >= 2}>2 · Spesifikasi</span>
+      <span class="step-item" class:active={step >= 3}>3 · Ringkasan</span>
     </div>
 
     {#if step === 1}
@@ -138,12 +138,12 @@
         <input bind:this={fileInput} type="file" accept={ACCEPTED} class="hidden-input" onchange={handleFile} />
         {#if uploading}
           <LoaderCircle size={40} class="spin" style="color: var(--primary)" />
-          <span class="display-sub-sm">Memproses fileâ€¦</span>
+          <span class="display-sub-sm">Memproses file…</span>
           <span class="caption text-body-mid">Menghitung jumlah halaman</span>
         {:else}
           <CloudUpload size={44} strokeWidth={1.5} style="color: var(--primary)" />
           <span class="display-sub-sm">Tarik & letakkan file di sini</span>
-          <span class="body-sm text-body-mid">atau klik untuk memilih â€” PDF, DOCX, JPG, PNG (maks 20MB)</span>
+          <span class="body-sm text-body-mid">atau klik untuk memilih — PDF, DOCX, JPG, PNG (maks 20MB)</span>
           <button class="btn btn-primary btn-sm">Pilih File</button>
         {/if}
       </div>
@@ -152,7 +152,7 @@
         <div class="pricing-card stack-xs">
           <Printer size={20} />
           <span class="caption text-body-mid">Jenis file</span>
-          <span class="body-md-strong">PDF Â· Word Â· Gambar</span>
+          <span class="body-md-strong">PDF · Word · Gambar</span>
         </div>
         <div class="pricing-card stack-xs">
           <FileText size={20} />
@@ -202,14 +202,14 @@
             </div>
             <button class="duplex-btn" class:opt-active={spec.duplex} onclick={() => { spec.duplex = !spec.duplex; updateQuote(); }}>
               <span class="body-md-strong">Cetak dua sisi (duplex)</span>
-              <span class="caption text-body-mid">Hemat kertas â€” berlaku untuk dokumen genap ganjil</span>
+              <span class="caption text-body-mid">Hemat kertas — berlaku untuk dokumen genap ganjil</span>
             </button>
             <label class="field">
               <span class="label-text">Finishing (opsional)</span>
               <select class="input" bind:value={spec.finishingOptionId} onchange={updateQuote}>
                 <option value="">Tanpa finishing</option>
                 {#each options.finishingOptions as fo (fo.id)}
-                  <option value={fo.id}>{fo.name} â€” {formatRupiah(fo.price)}</option>
+                  <option value={fo.id}>{fo.name} — {formatRupiah(fo.price)}</option>
                 {/each}
               </select>
             </label>
@@ -248,7 +248,7 @@
               <span class="body-md-strong">Total</span>
               <span class="display-sub-sm" style="color: var(--primary)">{formatRupiah(quote.pricing.total)}</span>
             </div>
-            <span class="caption text-body-mid">Estimasi selesai: Â±{quote.estimateMinutes} menit</span>
+            <span class="caption text-body-mid">Estimasi selesai: ±{quote.estimateMinutes} menit</span>
             <button class="btn btn-primary" onclick={() => (step = 3)}>Lanjut <ArrowRight size={18} /></button>
           {:else}
             <div class="empty-state">Isi spesifikasi untuk melihat harga.</div>
@@ -277,7 +277,7 @@
             <span class="body-sm">{formatRupiah(quote.pricing.perPage)}</span>
           </div>
           <div class="row-between">
-            <span class="body-sm text-body">Subtotal ({upload.pageCount} Ã— {spec.copies})</span>
+            <span class="body-sm text-body">Subtotal ({upload.pageCount} × {spec.copies})</span>
             <span class="body-sm">{formatRupiah(quote.pricing.subtotal)}</span>
           </div>
           {#if quote.pricing.finishingPrice > 0}
