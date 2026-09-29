@@ -88,8 +88,8 @@
       </div>
     {:else}
       <div class="grid grid-4">
-        {#each products as p (p.id)}
-          <ProductCard {p} />
+        {#each products as product (product.id)}
+          <ProductCard {product} />
         {/each}
       </div>
     {/if}

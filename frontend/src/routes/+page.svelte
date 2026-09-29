@@ -132,8 +132,8 @@
     </div>
     {#if featured.length}
       <div class="grid grid-4">
-        {#each featured as p (p.id)}
-          <ProductCard {p} />
+        {#each featured as product (product.id)}
+          <ProductCard {product} />
         {/each}
       </div>
     {:else}
