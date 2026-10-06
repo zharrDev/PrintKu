@@ -64,7 +64,7 @@ func (s *Server) getCart(c *gin.Context) {
 func (s *Server) addToCart(c *gin.Context) {
 	var body struct {
 		ProductID string `json:"product_id"`
-		Quantity  any     `json:"quantity"`
+		Quantity  any    `json:"quantity"`
 	}
 	_ = c.ShouldBindJSON(&body)
 	if body.ProductID == "" {

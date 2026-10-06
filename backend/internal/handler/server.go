@@ -74,7 +74,7 @@ func (s *Server) jsonErr(c *gin.Context, err error) {
 	c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 }
 
-func jsonOK(c *gin.Context, data gin.H)     { c.JSON(http.StatusOK, data) }
+func jsonOK(c *gin.Context, data gin.H)      { c.JSON(http.StatusOK, data) }
 func jsonCreated(c *gin.Context, data gin.H) { c.JSON(http.StatusCreated, data) }
 
 func jsonBad(c *gin.Context, msg string) {

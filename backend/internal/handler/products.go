@@ -140,12 +140,12 @@ func (s *Server) getProduct(c *gin.Context) {
 
 func (s *Server) createProduct(c *gin.Context) {
 	var body struct {
-		CategoryID string `json:"category_id"`
-		Name       string `json:"name"`
+		CategoryID  string `json:"category_id"`
+		Name        string `json:"name"`
 		Description string `json:"description"`
-		Price      any     `json:"price"`
-		Stock      any     `json:"stock"`
-		ImageURL   string `json:"image_url"`
+		Price       any    `json:"price"`
+		Stock       any    `json:"stock"`
+		ImageURL    string `json:"image_url"`
 	}
 	_ = c.ShouldBindJSON(&body)
 	if body.CategoryID == "" || strings.TrimSpace(body.Name) == "" || body.Price == nil {
@@ -178,12 +178,12 @@ func (s *Server) updateProduct(c *gin.Context) {
 		return
 	}
 	var body struct {
-		CategoryID  *string `json:"category_id"`
-		Name        *string `json:"name"`
-		Description *string `json:"description"`
+		CategoryID  *string  `json:"category_id"`
+		Name        *string  `json:"name"`
+		Description *string  `json:"description"`
 		Price       *float64 `json:"price"`
 		Stock       *float64 `json:"stock"`
-		ImageURL    *string `json:"image_url"`
+		ImageURL    *string  `json:"image_url"`
 		IsActive    *float64 `json:"is_active"`
 	}
 	_ = c.ShouldBindJSON(&body)

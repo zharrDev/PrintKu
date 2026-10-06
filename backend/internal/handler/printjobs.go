@@ -40,7 +40,7 @@ func (s *Server) printOptions(c *gin.Context) {
 	services, _ := allRows(s.DB, `SELECT * FROM print_services ORDER BY price_per_page`)
 	finishing, _ := allRows(s.DB, `SELECT * FROM finishing_options ORDER BY price`)
 	c.JSON(http.StatusOK, gin.H{
-		"printServices": services,
+		"printServices":    services,
 		"finishingOptions": finishing,
 		"paperSizes": []gin.H{
 			{"id": "a4", "name": "A4"},
@@ -108,7 +108,7 @@ func (s *Server) uploadFile(c *gin.Context) {
 	if !validateMagicBytes(file, ext) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "File corrupt atau Magic bytes tidak sesuai"})
 		return
-	}	// Simpan file dengan UUID random, bukan nama file client
+	} // Simpan file dengan UUID random, bukan nama file client
 	storedName := fmt.Sprintf("%d-%s%s", repository.NowUnixMilli(), newID(), ext)
 	dst := filepath.Join(s.Cfg.UploadDir, storedName)
 	originalName := file.Filename
@@ -186,9 +186,9 @@ func (s *Server) enrichJob(c *gin.Context, row map[string]any) gin.H {
 		"color_mode": row["color_mode"], "paper_size": row["paper_size"],
 		"copies": row["copies"], "duplex": row["duplex"],
 		"finishing_option_id": row["finishing_option_id"],
-		"estimated_price": row["estimated_price"], "status": row["status"],
+		"estimated_price":     row["estimated_price"], "status": row["status"],
 		"created_at": row["created_at"],
-		"finishing": finishing,
+		"finishing":  finishing,
 		"totalPages": toInt(row["page_count"]) * toInt(row["copies"]),
 	}
 }
@@ -299,8 +299,8 @@ func (s *Server) createPrintJob(c *gin.Context) {
 	}
 	row, _ := getRow(s.DB, `SELECT * FROM print_jobs WHERE id = ?`, id)
 	c.JSON(http.StatusCreated, gin.H{
-		"printJob": s.enrichJob(c, row),
-		"pricing":  gin.H{"perPage": pricing.PerPage, "subtotal": pricing.Subtotal, "finishingPrice": pricing.FinishingPrice, "total": pricing.Total, "formatted": pricing.Formatted},
+		"printJob":        s.enrichJob(c, row),
+		"pricing":         gin.H{"perPage": pricing.PerPage, "subtotal": pricing.Subtotal, "finishingPrice": pricing.FinishingPrice, "total": pricing.Total, "formatted": pricing.Formatted},
 		"estimateMinutes": minutes,
 	})
 }
@@ -331,10 +331,10 @@ func (s *Server) patchPrintJob(c *gin.Context) {
 	}
 
 	var body struct {
-		ColorMode        string `json:"colorMode"`
-		PaperSize        string `json:"paperSize"`
-		Copies           any    `json:"copies"`
-		Duplex           any    `json:"duplex"`
+		ColorMode         string `json:"colorMode"`
+		PaperSize         string `json:"paperSize"`
+		Copies            any    `json:"copies"`
+		Duplex            any    `json:"duplex"`
 		FinishingOptionID any    `json:"finishingOptionId"`
 	}
 	_ = c.ShouldBindJSON(&body)
@@ -406,8 +406,8 @@ func (s *Server) patchPrintJob(c *gin.Context) {
 	}
 	row, _ := getRow(s.DB, `SELECT * FROM print_jobs WHERE id = ?`, job["id"])
 	c.JSON(http.StatusOK, gin.H{
-		"printJob": s.enrichJob(c, row),
-		"pricing":  gin.H{"perPage": pricing.PerPage, "subtotal": pricing.Subtotal, "finishingPrice": pricing.FinishingPrice, "total": pricing.Total, "formatted": pricing.Formatted},
+		"printJob":        s.enrichJob(c, row),
+		"pricing":         gin.H{"perPage": pricing.PerPage, "subtotal": pricing.Subtotal, "finishingPrice": pricing.FinishingPrice, "total": pricing.Total, "formatted": pricing.Formatted},
 		"estimateMinutes": service.EstimateMinutes(toInt(row["page_count"]), copies),
 	})
 }

@@ -13,19 +13,19 @@ import (
 )
 
 var (
-	redisCli  *redis.Client
-	redisOK   bool
+	redisCli   *redis.Client
+	redisOK    bool
 	memoryJobs []printJob
 	memoryMu   sync.Mutex
 	cancelFunc context.CancelFunc
 )
 
 const (
-	QueueKey       = "printku:jobs:pending"
-	ProcessingKey  = "printku:jobs:processing"
-	DeadLetterKey  = "printku:jobs:dead_letter"
-	MaxRetries     = 3
-	RetryDelay     = 5 * time.Second
+	QueueKey      = "printku:jobs:pending"
+	ProcessingKey = "printku:jobs:processing"
+	DeadLetterKey = "printku:jobs:dead_letter"
+	MaxRetries    = 3
+	RetryDelay    = 5 * time.Second
 )
 
 type printJob struct {
@@ -51,9 +51,9 @@ func Init(addr string) {
 	}
 
 	cli := redis.NewClient(&redis.Options{
-		Addr:        addr,
-		DialTimeout: 5 * time.Second,
-		ReadTimeout: 3 * time.Second,
+		Addr:         addr,
+		DialTimeout:  5 * time.Second,
+		ReadTimeout:  3 * time.Second,
 		WriteTimeout: 3 * time.Second,
 	})
 

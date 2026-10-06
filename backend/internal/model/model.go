@@ -34,10 +34,10 @@ type Product struct {
 	CategoryID  string `json:"category_id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
-	Price       int64   `json:"price"`
-	Stock       int64   `json:"stock"`
+	Price       int64  `json:"price"`
+	Stock       int64  `json:"stock"`
 	ImageURL    string `json:"image_url"`
-	IsActive    int64   `json:"is_active"`
+	IsActive    int64  `json:"is_active"`
 	CreatedAt   string `json:"created_at"`
 }
 
@@ -104,21 +104,21 @@ type Payment struct {
 }
 
 type Order struct {
-	ID               string `json:"id"`
-	UserID           string `json:"user_id"`
-	OrderType        string `json:"order_type"`
-	Status           string `json:"status"`
-	TotalPrice       int64  `json:"total_price"`
-	DeliveryMethod   string `json:"delivery_method"`
-	DeliveryAddress  string `json:"delivery_address"`
-	Notes            string `json:"notes"`
-	CustomerName     string `json:"customer_name"`
-	CreatedAt        string `json:"created_at"`
-	UserName         string `json:"user_name,omitempty"`
-	PaymentStatus    string `json:"payment_status,omitempty"`
-	Items            []OrderItem    `json:"items,omitempty"`
-	PrintJobs        []PrintJobDetail `json:"printJobs,omitempty"`
-	Payment          *Payment       `json:"payment,omitempty"`
+	ID              string           `json:"id"`
+	UserID          string           `json:"user_id"`
+	OrderType       string           `json:"order_type"`
+	Status          string           `json:"status"`
+	TotalPrice      int64            `json:"total_price"`
+	DeliveryMethod  string           `json:"delivery_method"`
+	DeliveryAddress string           `json:"delivery_address"`
+	Notes           string           `json:"notes"`
+	CustomerName    string           `json:"customer_name"`
+	CreatedAt       string           `json:"created_at"`
+	UserName        string           `json:"user_name,omitempty"`
+	PaymentStatus   string           `json:"payment_status,omitempty"`
+	Items           []OrderItem      `json:"items,omitempty"`
+	PrintJobs       []PrintJobDetail `json:"printJobs,omitempty"`
+	Payment         *Payment         `json:"payment,omitempty"`
 }
 
 type Finishing struct {
@@ -137,10 +137,10 @@ type Category struct {
 }
 
 type Notification struct {
-	ID        string `json:"id"`
-	UserID    string `json:"user_id"`
+	ID        string  `json:"id"`
+	UserID    string  `json:"user_id"`
 	OrderID   *string `json:"order_id"`
-	Message   string `json:"message"`
-	IsRead    int64  `json:"is_read"`
-	CreatedAt string `json:"created_at"`
+	Message   string  `json:"message"`
+	IsRead    int64   `json:"is_read"`
+	CreatedAt string  `json:"created_at"`
 }

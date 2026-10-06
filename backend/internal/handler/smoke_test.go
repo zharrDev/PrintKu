@@ -475,4 +475,3 @@ func TestSmoke(t *testing.T) {
 
 	t.Logf("SMOKE TEST SELESAI - %d pengujian LULUS", passed)
 }
-

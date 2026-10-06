@@ -10,19 +10,19 @@ import (
 )
 
 type Config struct {
-	Port               int
-	AppEnv             string
-	DatabasePath       string
-	RedisAddr          string
-	JWTSecret          string
-	JWTExpiresIn       time.Duration
-	PaymentProvider    string
+	Port                int
+	AppEnv              string
+	DatabasePath        string
+	RedisAddr           string
+	JWTSecret           string
+	JWTExpiresIn        time.Duration
+	PaymentProvider     string
 	PaymentIsProduction bool
-	UploadDir          string
-	MaxUploadSizeMB    int64
-	CorsOrigin         string
-	AdminEmail         string
-	AdminPassword      string
+	UploadDir           string
+	MaxUploadSizeMB     int64
+	CorsOrigin          string
+	AdminEmail          string
+	AdminPassword       string
 }
 
 func Load() *Config {

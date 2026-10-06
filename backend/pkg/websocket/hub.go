@@ -39,7 +39,7 @@ type Hub struct {
 	clients map[string]map[*websocket.Conn]bool
 
 	// Konfigurasi keamanan
-	jwtSecret    []byte
+	jwtSecret      []byte
 	allowedOrigins map[string]bool
 
 	upgrader websocket.Upgrader

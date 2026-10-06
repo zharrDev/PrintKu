@@ -14,10 +14,10 @@ var PaperSizeMultiplier = map[string]float64{
 const EstimatedMinutesBase = 30
 
 type Pricing struct {
-	PerPage        int64 `json:"perPage"`
-	Subtotal       int64 `json:"subtotal"`
-	FinishingPrice int64 `json:"finishingPrice"`
-	Total          int64 `json:"total"`
+	PerPage        int64  `json:"perPage"`
+	Subtotal       int64  `json:"subtotal"`
+	FinishingPrice int64  `json:"finishingPrice"`
+	Total          int64  `json:"total"`
 	Formatted      string `json:"formatted"`
 }
 

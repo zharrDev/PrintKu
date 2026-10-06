@@ -154,7 +154,7 @@ func (s *Server) createOrder(c *gin.Context) {
 	); err != nil {
 		s.jsonErr(c, err)
 		return
-	}	// CATATAN: used_count voucher TIDAK diincrement di sini.
+	} // CATATAN: used_count voucher TIDAK diincrement di sini.
 	// Voucher hanya dianggap terpakai setelah payment sukses.
 	// Ini mencegah voucher terkuras oleh order yang belum dibayar.
 	_ = voucherID
