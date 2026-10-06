@@ -1,71 +1,86 @@
 /* ═══════════════════════════════════════════════════════════════
-   PrintKu Design System — smooth neubrutalism
-   Base palette: DESIGN-zapier.md (orange #ff4f00 · canvas krim
-   #fffefb · ink kopi #201515)
-   Karakter: neubrutalism tegas (border tebal, bayangan keras tanpa
-   blur) +Whitespace lega, sudut membulat, transisi lembut.
+   PrintKu Design System — “Warm Neo-Brutalism”
+   Akar: DESIGN-zapier.md (oranye #ff4f00 · kanvas krim #fffefb ·
+   ink kopi #201515). Karakter neubrutalisme yang diperhalus — garis
+   tegas & bayangan keras tanpa blur, tetapi ritme spasi lega,
+   tipografi cair, dan permukaan bertingkat (krim → krem tua) supaya
+   terasa hangat, rapi, dan elegan, bukan kaku.
+
+   Palet tetap tiga serangkai sesuai DESIGN-zapier.md: oranye + krim
+   + kopi. Tidak ada aksen kromatik kedua.
    ═══════════════════════════════════════════════════════════════ */
 
 :root {
-  /* ── Core palette (dari DESIGN-zapier.md, tidak diubah) ──── */
+  /* ── Palet inti (dari DESIGN-zapier.md) ─────────────────────── */
   --primary: #ff4f00;
+  --primary-deep: #d84000;          /* state pressed / teks di krim */
+  --primary-soft: #ffe7dc;          /* permukaan aksen hangat */
   --on-primary: #fffefb;
+
   --ink: #201515;
   --ink-soft: #2f2a26;
   --ink-mid: #36342e;
   --body: #605d52;
   --body-mid: #939084;
   --mute: #c5c0b1;
+
   --canvas: #fffefb;
   --canvas-soft: #f8f4f0;
+  --cream-deep: #efe7de;            /* tingkat ketiga ritme permukaan */
 
-  /* ── Semantic pastels (dari palet yang sama) ───────────── */
-  --success-soft: #dff3e4;
-  --warning-soft: #fff0c2;
-  --danger-soft: #ffd9d0;
-  --info-soft: #e3ecff;
+  /* ── Semantik (harmonis dengan krim hangat) ─────────────────── */
+  --success: #1f7a4d;
+  --success-soft: #dcf0e4;
+  --warning: #946000;
+  --warning-soft: #fbeccb;
+  --danger: #b0360f;
+  --danger-soft: #ffdcd2;
+  --info: #25509c;
+  --info-soft: #e2ebfd;
 
-  /* ── Typography ─────────────────────────────────────────── */
-  --font-display: 'Space Grotesk', Inter, system-ui, -apple-system, sans-serif;
+  /* ── Tipografi ──────────────────────────────────────────────── */
+  --font-display: 'Space Grotesk', 'Inter', system-ui, -apple-system, sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 
-  /* ── Shape ──────────────────────────────────────────────── */
+  /* ── Bentuk ─────────────────────────────────────────────────── */
   --border: 2px solid var(--ink);
   --border-thin: 1px solid var(--mute);
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
+  --radius-xl: 22px;
   --radius-pill: 9999px;
 
-  /* ── Elevation (hard offset, TANPA blur) ────────────────── */
+  /* ── Elevasi (bayangan keras tanpa blur) ────────────────────── */
+  --shadow-xs: 2px 2px 0 var(--ink);
   --shadow-sm: 3px 3px 0 var(--ink);
-  --shadow-md: 4px 4px 0 var(--ink);
-  --shadow-lg: 6px 6px 0 var(--ink);
-  --shadow-accent: 4px 4px 0 var(--primary);
+  --shadow-md: 5px 5px 0 var(--ink);
+  --shadow-lg: 8px 8px 0 var(--ink);
+  --shadow-xl: 12px 12px 0 var(--ink);
+  --shadow-accent: 5px 5px 0 var(--primary);
   --shadow-focus: 3px 3px 0 var(--primary);
-  --shadow-danger: 3px 3px 0 #c2410c;
+  --shadow-danger: 3px 3px 0 var(--danger);
 
-  /* Backdrop & hairline (dari nilai rgba sebelumnya) */
-  --backdrop: rgba(32, 21, 21, 0.4);
-  --backdrop-strong: rgba(32, 21, 21, 0.45);
+  /* Nilai tambahan yang dipakai komponen/halaman */
+  --backdrop: rgba(32, 21, 21, 0.42);
+  --backdrop-strong: rgba(32, 21, 21, 0.55);
   --hairline: 1px solid var(--mute);
-  --ring-primary: 0 0 0 4px rgba(255, 79, 0, 0.25);
-  /* Garis pemisah pada footer gelap (krem transparan) */
-  --divider-invert: 1px solid rgba(248, 244, 240, 0.35);
+  --ring-primary: 0 0 0 4px rgba(255, 79, 0, 0.22);
+  --divider-invert: 1px solid rgba(248, 244, 240, 0.32);
 
-  /* ── Motion ─────────────────────────────────────────────── */
+  /* ── Gerak ──────────────────────────────────────────────────── */
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
   --dur: 160ms;
 
-  /* ── Layout ─────────────────────────────────────────────── */
-  --container-max: 1280px;
-  --section-pad: 64px;
+  /* ── Layout ─────────────────────────────────────────────────── */
+  --container-max: 1240px;
+  --section-pad: clamp(48px, 7vw, 88px);
   --touch-min: 44px;
   --z-nav: 50;
   --z-modal: 80;
   --z-toast: 100;
 
-  /* ── Spacing (base 4px) ─────────────────────────────────── */
+  /* ── Spasi (basis 4px) ──────────────────────────────────────── */
   --space-xxs: 2px;
   --space-xs: 4px;
   --space-sm: 8px;
@@ -75,6 +90,7 @@
   --space-2xl: 32px;
   --space-3xl: 48px;
   --space-4xl: 64px;
+  --space-5xl: 96px;
 }
 
 *,
@@ -85,6 +101,7 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -95,18 +112,21 @@ body {
   font-size: 18px;
   line-height: 27px;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 600;
   color: var(--ink);
   letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 p {
   margin: 0;
+  text-wrap: pretty;
 }
 
 a {
@@ -129,13 +149,15 @@ button {
   color: var(--on-primary);
 }
 
-/* Fokus keyboard: ring oranye + offset, selalu terlihat. */
+/* Fokus keyboard: ring oranye + offset, selalu terlihat (termasuk di
+   atas tombol oranye, berkat outline putih tipis di dalamnya). */
 :focus-visible {
-  outline: 2px solid var(--primary);
+  outline: 3px solid var(--primary);
   outline-offset: 2px;
+  border-radius: var(--radius-sm);
 }
 
-/* Angka keuangan/tabel rata-rata & angka satu digit sejajar. */
+/* Angka keuangan/tabel rata & sejajar. */
 .tabular {
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum' 1;
@@ -145,26 +167,33 @@ button {
   font-feature-settings: 'tnum' 1;
 }
 
-/* ── Motion primitives ─────────────────────────────────────── */
+/* ── Gerak ─────────────────────────────────────────────────────── */
 @keyframes rise-in {
-  from { transform: translateY(8px); opacity: 0; }
+  from { transform: translateY(10px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
 @keyframes modal-in {
-  from { transform: scale(0.96); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from { transform: scale(0.96) translateY(6px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
 }
 @keyframes overlay-in {
   from { opacity: 0; }
   to { opacity: 1; }
 }
-
-/* Muncul saat elemen masuk viewport (dipakai kartu/daftar). */
-.rise {
-  animation: rise-in var(--dur) var(--ease) both;
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes shimmer {
+  from { background-position: 150% 0; }
+  to { background-position: -50% 0; }
 }
 
-/* Hormati preferensi pengguna: matikan translate & animasi masuk. */
+/* Muncul saat elemen masuk (dipakai kartu/daftar). */
+.rise {
+  animation: rise-in 320ms var(--ease) both;
+}
+
+/* Hormati preferensi pengguna. */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *,
@@ -175,63 +204,71 @@ button {
     transition-duration: 0.01ms !important;
   }
   .rise, .btn, .btn:hover, .btn:active,
-  .card, .card-hover:hover, .modal { animation: none !important; transform: none !important; }
-  .btn:hover, .card-hover:hover { transform: none !important; }
+  .card, .card-hover:hover, .modal { animation: none !important; }
+  .btn:hover, .card-hover:hover, .service-card:hover { transform: none !important; }
   .btn:active { transform: none !important; }
   .spinner { animation: spin 1.2s linear infinite !important; }
 }
 
-/* ── Container ─────────────────────────────────────────────── */
+/* ── Container ─────────────────────────────────────────────────── */
 .container {
+  width: 100%;
   max-width: var(--container-max);
   margin: 0 auto;
   padding-left: var(--space-xl);
   padding-right: var(--space-xl);
 }
 
-/* ── Typography scale ──────────────────────────────────────── */
+/* ── Skala tipografi ───────────────────────────────────────────── */
 .display-xl {
   font-family: var(--font-display);
-  font-size: 56px;
-  line-height: 56px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-size: clamp(2.6rem, 1.6rem + 4.2vw, 4.5rem);
+  line-height: 1.02;
+  font-weight: 600;
+  letter-spacing: -0.035em;
 }
 .display-lg {
   font-family: var(--font-display);
-  font-size: 48px;
-  line-height: 48px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-size: clamp(2rem, 1.3rem + 2.6vw, 3.15rem);
+  line-height: 1.06;
+  font-weight: 600;
+  letter-spacing: -0.03em;
 }
 .display-md {
   font-family: var(--font-display);
-  font-size: 32px;
-  line-height: 36px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-size: clamp(1.55rem, 1.1rem + 1.6vw, 2.15rem);
+  line-height: 1.12;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
+/* Sub-display memakai Inter (dua muka, dua peran — sesuai design ref). */
 .display-sub-lg {
-  font-size: 48px;
-  line-height: 49.92px;
+  font-family: var(--font-body);
+  font-size: clamp(1.75rem, 1.2rem + 1.8vw, 2.5rem);
+  line-height: 1.12;
   font-weight: 500;
+  letter-spacing: -0.02em;
 }
 .display-sub-md {
-  font-size: 32px;
-  line-height: 40px;
-  font-weight: 400;
+  font-family: var(--font-body);
+  font-size: clamp(1.35rem, 1.05rem + 1vw, 1.75rem);
+  line-height: 1.25;
+  font-weight: 500;
+  letter-spacing: -0.01em;
 }
 .display-sub-sm {
-  font-size: 24px;
-  line-height: 30px;
+  font-family: var(--font-body);
+  font-size: 1.375rem;
+  line-height: 1.3;
   font-weight: 600;
   letter-spacing: -0.6px;
 }
 .display-xs {
-  font-size: 20px;
-  line-height: 25px;
+  font-family: var(--font-body);
+  font-size: 1.1875rem;
+  line-height: 1.3;
   font-weight: 700;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.4px;
 }
 .body-lg {
   font-size: 20px;
@@ -260,15 +297,30 @@ button {
   font-size: 14px;
   line-height: 21px;
 }
-/* Eyebrow: 12-14px, uppercase, tracking 1px, weight 600. */
+
+/* Eyebrow: 13px UPPERCASE, tracking 1.4px, muka display. */
 .eyebrow {
-  font-family: var(--font-body);
+  display: inline-block;
+  font-family: var(--font-display);
   font-size: 13px;
   line-height: 16px;
   font-weight: 600;
-  letter-spacing: 1px;
+  letter-spacing: 1.4px;
   text-transform: uppercase;
   color: var(--body);
+}
+/* Varian dengan bilah oranye kecil di kiri — dipakai di kepala section. */
+.eyebrow-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+.eyebrow-bar::before {
+  content: '';
+  width: 22px;
+  height: 3px;
+  background: var(--primary);
+  border-radius: var(--radius-pill);
 }
 .eyebrow-invert { color: var(--on-primary); }
 
@@ -279,49 +331,77 @@ button {
 .text-primary { color: var(--primary); }
 .text-on-primary { color: var(--on-primary); }
 .text-center { text-align: center; }
+.text-balance { text-wrap: balance; }
+.on-primary { color: var(--on-primary); }
 
-/* ── Bands ───────────────────────────────────────────────────
-   Section berselang-seling --canvas / --canvas-soft. */
+/* Tautan bergaris bawah yang muncul halus saat hover. */
+.link-underline {
+  color: var(--primary-deep);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--mute);
+  transition: text-decoration-color var(--dur) var(--ease);
+}
+.link-underline:hover { text-decoration-color: var(--primary); }
+
+/* ── Band / section ────────────────────────────────────────────────
+   Ritme permukaan bertingkat: krim (canvas) → krem (soft) →
+   krem tua (deep). Hero diberi tekstur titik halus + glow oranye
+   lembut supaya terasa hidup tanpa keluar dari gaya flat. */
 .band {
   padding: var(--section-pad) var(--space-xl);
 }
 .band-hero {
-  background: var(--canvas);
+  background-color: var(--canvas);
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(32, 21, 21, 0.055) 1px, transparent 0),
+    radial-gradient(58% 70% at 92% -12%, rgba(255, 79, 0, 0.11), transparent 62%);
+  background-size: 22px 22px, 100% 100%;
   padding: var(--section-pad) var(--space-xl);
 }
 .band-cream {
   background: var(--canvas-soft);
+  border-top: var(--border-thin);
+  border-bottom: var(--border-thin);
+  padding: var(--section-pad) var(--space-xl);
+}
+.band-deep {
+  background: var(--cream-deep);
   padding: var(--section-pad) var(--space-xl);
 }
 .band-dark {
-  background: var(--ink);
+  background-color: var(--ink);
+  background-image: radial-gradient(60% 80% at 85% 0%, rgba(255, 79, 0, 0.16), transparent 60%);
   color: var(--on-primary);
   padding: var(--section-pad) var(--space-xl);
+  position: relative;
 }
 .band-dark h1, .band-dark h2, .band-dark h3, .band-dark h4 {
   color: var(--on-primary);
 }
-
-/* ── Responsive ────────────────────────────────────────────
-   768-1023: 2 kolom. <768: 1 kolom. ≥1024: penuh. */
-@media (max-width: 1023px) {
-  .grid-4 { grid-template-columns: repeat(2, 1fr); }
-  :root { --section-pad: var(--space-3xl); }
+.band-dark p,
+.band-dark .text-body,
+.band-dark .body-lg,
+.band-dark .body-md,
+.band-dark .body-sm {
+  color: rgba(255, 254, 251, 0.82);
 }
-@media (max-width: 767px) {
-  .display-xl { font-size: 40px; line-height: 44px; }
-  .display-lg, .display-sub-lg { font-size: 36px; line-height: 40px; }
-  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-  .band, .band-hero, .band-cream, .band-dark { padding: var(--space-3xl) var(--space-lg); }
-  .container { padding-left: var(--space-lg); padding-right: var(--space-lg); }
-  :root { --section-pad: var(--space-2xl); }
-  .card, .pricing-card, .pricing-card-featured, .card-dark, .modal { padding: var(--space-lg); }
+.band-dark .eyebrow { color: var(--primary); }
+
+/* Kepala section: judul di kiri, aksi di kanan. */
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-xl);
+  flex-wrap: wrap;
 }
 
-/* ── Buttons ───────────────────────────────────────────────────
-   Neumann: border 2px + bayangan keras. Hover angkat diagonal
-   (-2px,-2px) + shadow naik ke 6px. Active "ditekan" (+2px,+2px)
-   + shadow 0. Semua lewat var(--dur)/var(--ease). */
+/* ── Tombol ────────────────────────────────────────────────────────
+   Border 2px + bayangan keras. Hover mengangkat diagonal, active
+   “menekan” rata ke kertas. */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -334,17 +414,18 @@ button {
   line-height: 27px;
   font-weight: 600;
   text-decoration: none;
+  white-space: nowrap;
   background: var(--canvas);
   color: var(--ink);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
   transition: transform var(--dur) var(--ease),
               box-shadow var(--dur) var(--ease),
               background-color var(--dur) var(--ease);
-  min-height: var(--touch-min);
+  min-height: 48px;
 }
 .btn:hover {
   transform: translate(-2px, -2px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-md);
 }
 .btn:active {
   transform: translate(2px, 2px);
@@ -352,8 +433,8 @@ button {
 }
 .btn:disabled,
 .btn[aria-disabled='true'] {
-  background: var(--mute);
-  color: var(--canvas);
+  background: var(--canvas-soft);
+  color: var(--body-mid);
   border-color: var(--mute);
   box-shadow: none;
   cursor: not-allowed;
@@ -365,12 +446,13 @@ button {
   color: var(--on-primary);
 }
 .btn-primary:hover { background: var(--primary); }
+.btn-primary:active { background: var(--primary-deep); }
 
 .btn-secondary {
   background: var(--ink);
   color: var(--on-primary);
 }
-.btn-secondary:hover { background: var(--ink); }
+.btn-secondary:hover { background: var(--ink-soft); }
 
 .btn-tertiary {
   background: var(--canvas);
@@ -378,6 +460,7 @@ button {
 }
 .btn-tertiary:hover { background: var(--canvas-soft); }
 
+/* Tombol teks: tanpa bayangan sampai hover. */
 .btn-text {
   background: transparent;
   color: var(--ink);
@@ -394,7 +477,7 @@ button {
   background: var(--canvas-soft);
   border-color: var(--ink);
   transform: none;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-xs);
 }
 .btn-text:active { transform: none; box-shadow: none; }
 
@@ -402,10 +485,10 @@ button {
   padding: var(--space-sm) var(--space-lg);
   font-size: 16px;
   line-height: 24px;
-  min-height: 40px;
+  min-height: 42px;
 }
 
-/* Tombol ikon: target sentuh >= 44px, bentuk kotak membulat. */
+/* Tombol ikon kotak, target sentuh >= 44px. */
 .icon-btn {
   display: inline-flex;
   align-items: center;
@@ -417,17 +500,15 @@ button {
   color: var(--ink);
   border: var(--border);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-xs);
   transition: transform var(--dur) var(--ease),
               box-shadow var(--dur) var(--ease),
               background-color var(--dur) var(--ease);
 }
-.icon-btn:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-md); }
+.icon-btn:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-sm); background: var(--canvas-soft); }
 .icon-btn:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--ink); }
 
-/* ── Forms ───────────────────────────────────────────────────
-   Fokus: border tetap --ink + bayangan oranye (bukan ring biru),
-   outline dimatikan supaya tidak dobel. */
+/* ── Formulir ──────────────────────────────────────────────────── */
 .input {
   width: 100%;
   background: var(--canvas);
@@ -449,18 +530,18 @@ button {
   box-shadow: var(--shadow-focus);
 }
 .input[aria-invalid='true'] {
-  border-color: #c2410c;
+  border-color: var(--danger);
   box-shadow: var(--shadow-danger);
 }
 select.input {
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23201515' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23201515' stroke-width='2.2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right var(--space-lg) center;
   padding-right: var(--space-3xl);
   cursor: pointer;
 }
-textarea.input { resize: vertical; }
+textarea.input { resize: vertical; min-height: 120px; }
 
 label.field {
   display: block;
@@ -480,29 +561,46 @@ label.field .label-text {
   font-size: 14px;
   line-height: 21px;
   font-weight: 500;
-  color: #c2410c;
+  color: var(--danger);
 }
 
-/* ── Cards ───────────────────────────────────────────────────
-   Kartu emphasis: bg --ink + bayangan oranye (khas neubrutalism). */
+/* ── Kartu ─────────────────────────────────────────────────────── */
 .card {
   background: var(--canvas-soft);
   color: var(--ink);
   border: var(--border);
   border-radius: var(--radius-lg);
   padding: var(--space-xl);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
 }
-/* Kartu yang bisa diklik: hover angkat diagonal seperti tombol. */
 .card-hover {
   transition: transform var(--dur) var(--ease),
               box-shadow var(--dur) var(--ease);
 }
 .card-hover:hover {
   transform: translate(-2px, -2px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-md);
 }
 .card-active { cursor: pointer; }
+
+/* Kartu putih (tanpa isian krim) untuk area konten padat. */
+.card-flat {
+  background: var(--canvas);
+  color: var(--ink);
+  border: var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-sm);
+}
+/* Kartu aksen hangat — untuk highlight non-primer. */
+.card-accent {
+  background: var(--primary-soft);
+  color: var(--ink);
+  border: var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-sm);
+}
 
 .card-dark {
   background: var(--ink);
@@ -533,9 +631,11 @@ label.field .label-text {
   border-radius: var(--radius-lg);
   padding: var(--space-xl);
   box-shadow: var(--shadow-accent);
+  transition: transform var(--dur) var(--ease);
 }
 .pricing-card-featured:hover { transform: translate(-2px, -2px); }
-.pricing-card-featured h3, .pricing-card-featured p { color: inherit; }
+.pricing-card-featured h1, .pricing-card-featured h2, .pricing-card-featured h3,
+.pricing-card-featured p, .pricing-card-featured .text-body { color: inherit; }
 
 /* Kartu status semantik — teks selalu --ink di atas pastel. */
 .card-success { background: var(--success-soft); }
@@ -543,19 +643,18 @@ label.field .label-text {
 .card-danger { background: var(--danger-soft); }
 .card-info { background: var(--info-soft); }
 
-/* ── Badges & pills ──────────────────────────────────────────
-   Pill hanya untuk badge/status, TIDAK untuk tombol. */
+/* ── Badge, chip & pill ────────────────────────────────────────── */
 .badge {
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
   background: var(--canvas-soft);
   color: var(--ink);
-  border: var(--border);
+  border: 2px solid var(--ink);
   border-radius: var(--radius-pill);
   padding: var(--space-xs) var(--space-md);
-  font-size: 14px;
-  line-height: 21px;
+  font-size: 13px;
+  line-height: 20px;
   font-weight: 600;
   white-space: nowrap;
 }
@@ -569,10 +668,10 @@ label.field .label-text {
   color: var(--on-primary);
   border-color: var(--ink);
 }
-.badge-success { background: var(--success-soft); }
-.badge-warning { background: var(--warning-soft); }
-.badge-danger { background: var(--danger-soft); }
-.badge-info { background: var(--info-soft); }
+.badge-success { background: var(--success-soft); color: var(--ink); }
+.badge-warning { background: var(--warning-soft); color: var(--ink); }
+.badge-danger { background: var(--danger-soft); color: var(--ink); }
+.badge-info { background: var(--info-soft); color: var(--ink); }
 .badge-outline {
   background: transparent;
   border-color: var(--ink);
@@ -585,10 +684,45 @@ label.field .label-text {
   flex-shrink: 0;
 }
 .badge-dark .dot, .badge-primary .dot { background: var(--on-primary); }
+.badge-success .dot { background: var(--success); }
+.badge-warning .dot { background: var(--warning); }
+.badge-danger .dot { background: var(--danger); }
+.badge-info .dot { background: var(--info); }
 
-/* ── Data table ─────────────────────────────────────────────
-   Header uppercase kecil di atas --canvas-soft, baris dipisah
-   garis 1px --mute, hover baris naik ke canvas-soft. */
+/* Chip filter (katalog, spesifikasi print). */
+.chip {
+  border: 1px solid var(--mute);
+  background: var(--canvas);
+  color: var(--ink);
+  border-radius: var(--radius-pill);
+  padding: var(--space-xs) var(--space-lg);
+  font-size: 16px;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  transition: background-color var(--dur) var(--ease),
+              border-color var(--dur) var(--ease),
+              color var(--dur) var(--ease);
+}
+.chip:hover { border-color: var(--ink); }
+.chip-active {
+  background: var(--ink);
+  color: var(--on-primary);
+  border-color: var(--ink);
+}
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--body-mid);
+}
+
+/* ── Tabel data ────────────────────────────────────────────────── */
 .table-wrap {
   overflow-x: auto;
   border: var(--border);
@@ -627,8 +761,7 @@ label.field .label-text {
 .data-table tbody tr { transition: background-color var(--dur) var(--ease); }
 .data-table tbody tr:hover { background: var(--canvas-soft); }
 
-/* ── Modal ──────────────────────────────────────────────────
-   Backdrop --ink 40%, masuk scale 0.96 → 1 + fade. */
+/* ── Modal ─────────────────────────────────────────────────────── */
 .overlay {
   position: fixed;
   inset: 0;
@@ -652,80 +785,7 @@ label.field .label-text {
   animation: modal-in var(--dur) var(--ease) both;
 }
 
-/* ── Misc ──────────────────────────────────────────────────── */
-.divider {
-  height: var(--border);
-  background: var(--ink);
-  border: none;
-  margin: var(--space-xl) 0;
-}
-
-.grid {
-  display: grid;
-  gap: var(--space-xl);
-}
-.grid-2 { grid-template-columns: repeat(2, 1fr); }
-.grid-3 { grid-template-columns: repeat(3, 1fr); }
-.grid-4 { grid-template-columns: repeat(4, 1fr); }
-
-.stack-sm { display: flex; flex-direction: column; gap: var(--space-sm); }
-.stack-md { display: flex; flex-direction: column; gap: var(--space-md); }
-.stack-lg { display: flex; flex-direction: column; gap: var(--space-lg); }
-.stack-xl { display: flex; flex-direction: column; gap: var(--space-xl); }
-.row { display: flex; align-items: center; gap: var(--space-md); }
-.row-between { display: flex; align-items: center; justify-content: space-between; gap: var(--space-md); }
-.wrap { flex-wrap: wrap; }
-
-.mt-1 { margin-top: var(--space-md); }
-.mt-2 { margin-top: var(--space-xl); }
-.mt-3 { margin-top: var(--space-2xl); }
-.mt-4 { margin-top: var(--space-3xl); }
-.mb-1 { margin-bottom: var(--space-md); }
-.mb-2 { margin-bottom: var(--space-xl); }
-
-.muted-link { color: var(--body); }
-.muted-link:hover { color: var(--primary); }
-
-.spinner {
-  width: 24px;
-  height: 24px;
-  border: var(--border);
-  border-top-color: var(--primary);
-  border-radius: var(--radius-pill);
-  animation: spin 0.7s linear infinite;
-  display: inline-block;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.empty-state {
-  text-align: center;
-  padding: var(--space-3xl) var(--space-xl);
-  background: var(--canvas-soft);
-  border: var(--border);
-  border-radius: var(--radius-lg);
-  color: var(--body);
-  box-shadow: var(--shadow-sm);
-}
-
-/* ── Responsive ────────────────────────────────────────────
-   768-1023: 2 kolom. <768: 1 kolom. ≥1024: penuh. */
-@media (max-width: 1023px) {
-  .grid-4 { grid-template-columns: repeat(2, 1fr); }
-  :root { --section-pad: var(--space-3xl); }
-}
-@media (max-width: 767px) {
-  .display-xl { font-size: 40px; line-height: 44px; }
-  .display-lg, .display-sub-lg { font-size: 36px; line-height: 40px; }
-  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-  .band, .band-hero, .band-cream, .band-dark { padding: var(--space-3xl) var(--space-lg); }
-  .container { padding-left: var(--space-lg); padding-right: var(--space-lg); }
-  :root { --section-pad: var(--space-2xl); }
-  .card, .pricing-card, .pricing-card-featured, .card-dark, .modal { padding: var(--space-lg); }
-}
-
-/* ── Nav ──────────────────────────────────────────────────────
-   Sticky, bg --canvas, border bawah 2px --ink. Link aktif jadi
-   pill kecil bg --primary. */
+/* ── Navigasi & sidebar ────────────────────────────────────────── */
 .nav {
   position: sticky;
   top: 0;
@@ -743,7 +803,8 @@ label.field .label-text {
   border-radius: var(--radius-pill);
   border: 2px solid transparent;
   transition: background-color var(--dur) var(--ease),
-              border-color var(--dur) var(--ease);
+              border-color var(--dur) var(--ease),
+              color var(--dur) var(--ease);
   min-height: var(--touch-min);
   display: inline-flex;
   align-items: center;
@@ -753,10 +814,9 @@ label.field .label-text {
   background: var(--primary);
   border-color: var(--ink);
   color: var(--on-primary);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-xs);
 }
 
-/* Sidebar admin: item aktif bg --primary + border + shadow-sm. */
 .side-link {
   display: flex;
   align-items: center;
@@ -773,32 +833,142 @@ label.field .label-text {
               border-color var(--dur) var(--ease),
               box-shadow var(--dur) var(--ease);
 }
-.side-link:hover { background: var(--canvas-soft); border-color: var(--ink); }
+.side-link:hover { background: var(--canvas); border-color: var(--ink); }
 .side-link[aria-current='page'] {
   background: var(--primary);
   border-color: var(--ink);
   color: var(--on-primary);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-xs);
 }
 
-/* -- Toast ------------------------------------------------ */
-   Kartu kecil + shadow-md, muncul dari bawah, auto-dismiss
-   (auto-dismiss diatur di Toasts.svelte). */
+/* ── Toast ───────────────────────────────────────────────────────
+   Kartu kecil + border tebal, muncul dari bawah; auto-dismiss diatur
+   di Toasts.svelte. Garis kiri berwarna menandai jenis pesan. */
 .toast {
   display: flex;
   align-items: flex-start;
   gap: var(--space-sm);
   background: var(--canvas);
   border: var(--border);
+  border-left-width: 8px;
   border-radius: var(--radius-md);
   padding: var(--space-md) var(--space-lg);
   font-size: 16px;
   line-height: 24px;
+  font-weight: 500;
   color: var(--ink);
   box-shadow: var(--shadow-md);
   animation: rise-in var(--dur) var(--ease) both;
 }
-.toast-success { background: var(--success-soft); }
-.toast-error { background: var(--danger-soft); }
-.toast-info { background: var(--info-soft); }
 .toast svg { flex-shrink: 0; margin-top: var(--space-xxs); }
+.toast-success { background: var(--success-soft); border-left-color: var(--success); }
+.toast-error { background: var(--danger-soft); border-left-color: var(--danger); }
+.toast-info { background: var(--info-soft); border-left-color: var(--info); }
+
+/* ── Utilitas & lainnya ────────────────────────────────────────── */
+.divider {
+  height: 2px;
+  background: var(--ink);
+  border: none;
+  margin: var(--space-xl) 0;
+}
+.divider-soft {
+  height: 1px;
+  background: var(--mute);
+  border: none;
+  margin: var(--space-xl) 0;
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-xl);
+}
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+.stack-xs { display: flex; flex-direction: column; gap: var(--space-xs); }
+.stack-sm { display: flex; flex-direction: column; gap: var(--space-sm); }
+.stack-md { display: flex; flex-direction: column; gap: var(--space-md); }
+.stack-lg { display: flex; flex-direction: column; gap: var(--space-lg); }
+.stack-xl { display: flex; flex-direction: column; gap: var(--space-xl); }
+.row { display: flex; align-items: center; gap: var(--space-md); }
+.row-between { display: flex; align-items: center; justify-content: space-between; gap: var(--space-md); }
+.wrap { flex-wrap: wrap; }
+
+.mt-1 { margin-top: var(--space-md); }
+.mt-2 { margin-top: var(--space-xl); }
+.mt-3 { margin-top: var(--space-2xl); }
+.mt-4 { margin-top: var(--space-3xl); }
+.mb-1 { margin-bottom: var(--space-md); }
+.mb-2 { margin-bottom: var(--space-xl); }
+
+.muted-link { color: var(--body); transition: color var(--dur) var(--ease); }
+.muted-link:hover { color: var(--primary); }
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--mute);
+  border-top-color: var(--primary);
+  border-radius: var(--radius-pill);
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+/* Placeholder berkilau saat memuat. */
+.skeleton {
+  background: linear-gradient(90deg, var(--canvas-soft) 25%, var(--cream-deep) 50%, var(--canvas-soft) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite linear;
+  border-radius: var(--radius-sm);
+  min-height: 16px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: var(--space-3xl) var(--space-xl);
+  background: var(--canvas-soft);
+  border: var(--border);
+  border-radius: var(--radius-lg);
+  color: var(--body);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Blok angka ringkas (mis. statistik di halaman depan). */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+}
+.stat {
+  background: var(--canvas);
+  border: var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg) var(--space-xl);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+.stat-value {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 1.1rem + 1.6vw, 2.25rem);
+  line-height: 1.05;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* ── Responsif ───────────────────────────────────────────────────
+   Tablet 768-1023: grid 2 kolom. Mobile <768: 1 kolom, spasi rapat. */
+@media (max-width: 1023px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 767px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .band, .band-hero, .band-cream, .band-deep, .band-dark { padding: var(--space-3xl) var(--space-lg); }
+  .container { padding-left: var(--space-lg); padding-right: var(--space-lg); }
+  .card, .card-flat, .card-accent, .pricing-card, .pricing-card-featured, .card-dark, .modal { padding: var(--space-lg); }
+  .overlay { padding: var(--space-xl) var(--space-lg); }
+}
