@@ -9,6 +9,8 @@
   let items = $state([]);
   let total = $state(0);
   let loading = $state(true);
+  // ID item yang gambarnya gagal dimuat → kembali ke stiker inisial.
+  let brokenThumbs = $state([]);
 
   onMount(load);
 
@@ -65,7 +67,19 @@
         <div class="card stack-md">
           {#each items as it (it.cart_item_id)}
             <div class="cart-item">
-              <div class="item-thumb" aria-hidden="true">{it.name[0]}</div>
+              <div class="item-thumb">
+                {#if it.image_url && !brokenThumbs.includes(it.id)}
+                  <img
+                    src={it.image_url}
+                    alt={it.name}
+                    loading="lazy"
+                    decoding="async"
+                    onerror={() => (brokenThumbs = [...brokenThumbs, it.id])}
+                  />
+                {:else}
+                  <span aria-hidden="true">{it.name[0]}</span>
+                {/if}
+              </div>
               <div class="stack-sm" style="flex: 1; min-width: 0">
                 <a href={`/produk/${it.id}`} class="body-md-strong">{it.name}</a>
                 <span class="caption text-body-mid">{formatRupiah(it.price)} / unit</span>
@@ -128,7 +142,9 @@
     border: var(--border);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-xs);
+    overflow: hidden;
   }
+  .item-thumb img { width: 100%; height: 100%; object-fit: cover; }
   .qty { display: inline-flex; align-items: center; border: 1px solid var(--ink); border-radius: var(--radius-sm); overflow: hidden; }
   .qty-btn {
     background: var(--canvas);

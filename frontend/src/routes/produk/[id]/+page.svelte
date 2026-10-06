@@ -10,6 +10,9 @@
   let product = $state(null);
   let qty = $state(1);
   let adding = $state(false);
+  // Fallback ke stiker inisial bila gambar produk tidak bisa dimuat.
+  let imgBroken = $state(false);
+  let showImage = $derived(Boolean(product?.image_url) && !imgBroken);
 
   onMount(async () => {
     const r = await api(`/products/${page.params.id}`);
@@ -41,8 +44,18 @@
     {#if product}
       <a href="/katalog" class="btn-text" style="align-self: flex-start"><ArrowLeft size={16} /> Kembali ke katalog</a>
       <div class="detail-grid">
-        <div class="thumb" aria-hidden="true">
-          <span class="thumb-letter">{product.name[0]}</span>
+        <div class="thumb">
+          {#if showImage}
+            <img
+              class="thumb-img"
+              src={product.image_url}
+              alt={`Foto produk ${product.name}`}
+              decoding="async"
+              onerror={() => (imgBroken = true)}
+            />
+          {:else}
+            <span class="thumb-letter" aria-hidden="true">{product.name[0]}</span>
+          {/if}
         </div>
         <div class="card stack-xl">
           <div class="row wrap">
@@ -56,7 +69,7 @@
           <div class="row">
             <div class="qty">
               <button class="qty-btn" aria-label="Kurangi" onclick={() => (qty = Math.max(1, qty - 1))} disabled={product.stock < 1}><Minus size={16} /></button>
-              <input type="number" min="1" max={product.stock} bind:value={qty} class="qty-input" />
+              <input type="number" min="1" max={product.stock} bind:value={qty} class="qty-input" aria-label={`Jumlah ${product.name}`} />
               <button class="qty-btn" aria-label="Tambah" onclick={() => (qty = Math.min(product.stock, qty + 1))} disabled={product.stock < 1}><Plus size={16} /></button>
             </div>
             <button class="btn btn-primary" style="flex: 1" onclick={addToCart} disabled={adding || product.stock < 1}>
@@ -109,6 +122,7 @@
     box-shadow: var(--shadow-sm);
     transform: rotate(-3deg);
   }
+  .thumb-img { width: 100%; height: 100%; object-fit: cover; }
   .qty {
     display: inline-flex;
     align-items: center;

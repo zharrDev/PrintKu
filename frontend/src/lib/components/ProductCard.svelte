@@ -8,6 +8,9 @@
   let { product } = $props();
   let qty = $state(1);
   let adding = $state(false);
+  // Bila gambar produk gagal dimuat, tampilkan stiker inisial sebagai gantinya.
+  let imgBroken = $state(false);
+  let showImage = $derived(Boolean(product?.image_url) && !imgBroken);
 
   async function addToCart() {
     if (!localStorage.getItem('printku_token')) {
@@ -26,9 +29,20 @@
 </script>
 
 <div class="card card-hover product-card">
-  <a href={`/produk/${product.id}`}>
-    <div class="thumb" aria-hidden="true">
-      <span class="thumb-letter">{product.name[0]}</span>
+  <a href={`/produk/${product.id}`} class="thumb-link">
+    <div class="thumb">
+      {#if showImage}
+        <img
+          class="thumb-img"
+          src={product.image_url}
+          alt={product.name}
+          loading="lazy"
+          decoding="async"
+          onerror={() => (imgBroken = true)}
+        />
+      {:else}
+        <span class="thumb-letter" aria-hidden="true">{product.name[0]}</span>
+      {/if}
     </div>
     <div class="stack-sm body">
       <span class="badge">{product.category_name || 'Produk'}</span>
@@ -43,7 +57,7 @@
   <div class="row actions">
     <div class="qty">
       <button class="qty-btn" aria-label="Kurangi" onclick={() => (qty = Math.max(1, qty - 1))}><Minus size={16} /></button>
-      <input type="number" min="1" max={product.stock} bind:value={qty} class="qty-input" />
+      <input type="number" min="1" max={product.stock} bind:value={qty} class="qty-input" aria-label={`Jumlah ${product.name}`} />
       <button class="qty-btn" aria-label="Tambah" onclick={() => (qty = Math.min(product.stock, qty + 1))}><Plus size={16} /></button>
     </div>
     <button class="btn btn-primary btn-sm flex-grow" onclick={addToCart} disabled={adding || product.stock < 1}>
@@ -83,6 +97,13 @@
     transition: transform var(--dur) var(--ease);
   }
   .card-hover:hover .thumb-letter { transform: rotate(-3deg) scale(1.06); }
+  .thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 320ms var(--ease);
+  }
+  .card-hover:hover .thumb-img { transform: scale(1.05); }
   .clamp {
     display: -webkit-box;
     -webkit-line-clamp: 2;
