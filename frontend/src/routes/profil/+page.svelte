@@ -97,7 +97,12 @@
                 <span class="body-md-strong">{a.label}</span>
                 <span class="body-sm text-body">{a.full_address}, {a.city} {a.postal_code}</span>
               </div>
-              <button class="icon-btn" title="Hapus alamat" onclick={() => deleteAddress(a)}><Trash2 size={16} /></button>
+              <button
+                class="icon-btn"
+                type="button"
+                aria-label={`Hapus alamat ${a.label}`}
+                onclick={() => deleteAddress(a)}
+              ><Trash2 size={16} aria-hidden="true" /></button>
             </div>
           {/each}
         {/if}

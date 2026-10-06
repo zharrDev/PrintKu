@@ -37,7 +37,7 @@
       <span class="brand-name display-xs">PrintKu</span>
     </a>
 
-    <div class="nav-links" class:open>
+    <div class="nav-links" class:open id="nav-menu">
       <a href="/" class="nav-link" aria-current={path === '/' ? 'page' : undefined} onclick={() => (open = false)}>Beranda</a>
       <a href="/katalog" class="nav-link" aria-current={path.startsWith('/katalog') || path.startsWith('/produk') ? 'page' : undefined} onclick={() => (open = false)}>Katalog</a>
       <a href="/print" class="nav-link" aria-current={path === '/print' ? 'page' : undefined} onclick={() => (open = false)}>Jasa Print</a>
@@ -53,13 +53,20 @@
         <a href="/masuk" class="btn-text">Masuk</a>
         <a href="/daftar" class="btn btn-primary btn-sm">Daftar</a>
       {/if}
-      <a href="/keranjang" class="cart-btn" aria-label="Keranjang">
+      <a href="/keranjang" class="cart-btn" aria-label={`Keranjang${$cartStore.items.length ? `, ${$cartStore.items.reduce((n, it) => n + it.quantity, 0)} item` : ''}`}>
         <ShoppingCart size={20} strokeWidth={2} />
         {#if $cartStore.items.length > 0}
           <span class="cart-count">{$cartStore.items.reduce((n, it) => n + it.quantity, 0)}</span>
         {/if}
       </a>
-      <button class="hamburger" aria-label="Menu" onclick={() => (open = !open)}>
+      <button
+        class="hamburger"
+        type="button"
+        aria-label="Menu navigasi"
+        aria-expanded={open}
+        aria-controls="nav-menu"
+        onclick={() => (open = !open)}
+      >
         {#if open}<X size={22} />{:else}<Menu size={22} />{/if}
       </button>
     </div>

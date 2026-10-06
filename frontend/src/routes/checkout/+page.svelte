@@ -270,7 +270,7 @@
         {#if discount > 0}
           <div class="row-between">
             <span class="body-sm text-body">Diskon voucher</span>
-            <span class="body-md" style="color: var(--primary)">−{formatRupiah(discount)}</span>
+            <span class="body-md text-primary-ink">−{formatRupiah(discount)}</span>
           </div>
         {/if}
         <div class="row-between">

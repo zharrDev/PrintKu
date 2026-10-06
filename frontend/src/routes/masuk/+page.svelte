@@ -38,13 +38,29 @@
         <form class="stack-md" onsubmit={(e) => { e.preventDefault(); submit(); }}>
           <label class="field">
             <span class="label-text">Email</span>
-            <input class="input" type="email" required placeholder="nama@email.com" bind:value={email} />
+            <input
+              class="input"
+              type="email"
+              required
+              autocomplete="email"
+              placeholder="nama@email.com"
+              bind:value={email}
+              aria-invalid={error ? 'true' : undefined}
+            />
           </label>
           <label class="field">
             <span class="label-text">Password</span>
-            <input class="input" type="password" required placeholder="••••••••" bind:value={password} />
+            <input
+              class="input"
+              type="password"
+              required
+              autocomplete="current-password"
+              placeholder="••••••••"
+              bind:value={password}
+              aria-invalid={error ? 'true' : undefined}
+            />
           </label>
-          {#if error}<p class="caption" style="color: var(--primary)">{error}</p>{/if}
+          {#if error}<p class="field-error" role="alert">{error}</p>{/if}
           <button class="btn btn-primary" disabled={loading}><Lock size={16} /> {loading ? 'Memeriksa…' : 'Masuk'}</button>
         </form>
         <hr class="divider" />

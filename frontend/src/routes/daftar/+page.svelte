@@ -52,9 +52,18 @@
           </label>
           <label class="field">
             <span class="label-text">Password</span>
-            <input class="input" type="password" required minlength="6" placeholder="Minimal 6 karakter" bind:value={password} />
+            <input
+              class="input"
+              type="password"
+              required
+              minlength="6"
+              autocomplete="new-password"
+              placeholder="Minimal 6 karakter"
+              bind:value={password}
+              aria-invalid={error ? 'true' : undefined}
+            />
           </label>
-          {#if error}<p class="caption" style="color: var(--primary)">{error}</p>{/if}
+          {#if error}<p class="field-error" role="alert">{error}</p>{/if}
           <button class="btn btn-primary" disabled={loading}><UserPlus size={16} /> {loading ? 'Mendaftar…' : 'Daftar'}</button>
         </form>
         <hr class="divider" />

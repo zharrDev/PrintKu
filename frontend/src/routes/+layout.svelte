@@ -14,8 +14,9 @@
   let { children } = $props();
 </script>
 
+<a class="skip-link" href="#konten">Lewati ke konten utama</a>
 <Navbar />
-<main>
+<main id="konten">
   {@render children()}
 </main>
 <Footer />

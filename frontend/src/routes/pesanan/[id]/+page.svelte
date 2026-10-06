@@ -158,7 +158,7 @@
             </div>
             <div class="row-between">
               <span class="body-sm text-body">Diskon{order.voucher_code ? ` (${order.voucher_code})` : ''}</span>
-              <span class="body-sm" style="color: var(--primary)">−{formatRupiah(order.discount)}</span>
+              <span class="body-sm text-primary-ink">−{formatRupiah(order.discount)}</span>
             </div>
           {/if}
           <div class="row-between">
