@@ -2,8 +2,8 @@ package handler
 
 import (
 	"database/sql"
-	"fmt"
 	"net/http"
+	"strconv"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -12,10 +12,35 @@ import (
 	"printmart/backend/internal/repository"
 )
 
+// maxPageSize membatasi jumlah item per halaman agar query tidak terlalu berat.
+const maxPageSize = 50
+
+// defaultPageSize dipakai saat client mengirim limit secara tidak valid.
+const defaultPageSize = 12
+
+// parsePositiveInt mengubah nilai query menjadi int >= 1, atau 0 bila
+// tidak valid/tidak diberikan. Nilai 0 berarti "parameter tidak dipakai".
+func parsePositiveInt(raw string) int {
+	n, err := strconv.Atoi(strings.TrimSpace(raw))
+	if err != nil || n < 1 {
+		return 0
+	}
+	return n
+}
+
 func (s *Server) listProducts(c *gin.Context) {
 	search := c.Query("search")
 	category := c.Query("category")
 	sort := c.Query("sort")
+
+	// Pagination bersifat opsional. Bila client tidak mengirim page/limit,
+	// seluruh hasil tetap dikembalikan agar perilaku lama (dipakai admin
+	// dan smoke test) tidak berubah.
+	page := parsePositiveInt(c.Query("page"))
+	limit := parsePositiveInt(c.Query("limit"))
+	if limit > maxPageSize {
+		limit = maxPageSize
+	}
 
 	var where []string
 	var params []any
@@ -48,16 +73,55 @@ func (s *Server) listProducts(c *gin.Context) {
 		orderBy = "created_at DESC"
 	}
 
-	rows, err := allRows(s.DB,
-		fmt.Sprintf(`SELECT p.*, c.name AS category_name FROM products p
-			LEFT JOIN categories c ON c.id = p.category_id
-			WHERE %s ORDER BY %s`, strings.Join(where, " AND "), orderBy),
-		params...)
+	from := `FROM products p
+		LEFT JOIN categories c ON c.id = p.category_id
+		WHERE ` + strings.Join(where, " AND ")
+
+	// Total dihitung tanpa LIMIT agar bisa dipakai untuk menghitung
+	// jumlah halaman di sisi client.
+	var total int64
+	if err := s.DB.QueryRow(`SELECT COUNT(*) `+from, params...).Scan(&total); err != nil {
+		s.jsonErr(c, err)
+		return
+	}
+
+	query := `SELECT p.*, c.name AS category_name ` + from + ` ORDER BY ` + orderBy
+	queryParams := params
+
+	paginated := page > 0 || limit > 0
+	if paginated {
+		if limit == 0 {
+			limit = defaultPageSize
+		}
+		if page == 0 {
+			page = 1
+		}
+		offset := (page - 1) * limit
+		query += " LIMIT ? OFFSET ?"
+		queryParams = append(append([]any{}, params...), limit, offset)
+	}
+
+	rows, err := allRows(s.DB, query, queryParams...)
 	if err != nil {
 		s.jsonErr(c, err)
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"products": rows, "count": len(rows)})
+
+	resp := gin.H{
+		"products": rows,
+		"count":    len(rows),
+		"total":    total,
+	}
+	if paginated {
+		totalPages := int((total + int64(limit) - 1) / int64(limit))
+		if totalPages < 1 {
+			totalPages = 1
+		}
+		resp["page"] = page
+		resp["limit"] = limit
+		resp["totalPages"] = totalPages
+	}
+	c.JSON(http.StatusOK, resp)
 }
 
 func (s *Server) getProduct(c *gin.Context) {
