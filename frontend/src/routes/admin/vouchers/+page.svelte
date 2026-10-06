@@ -3,7 +3,8 @@
   import { api } from '$lib/api.js';
   import { formatRupiah } from '$lib/format.js';
   import { toast } from '$lib/stores.js';
-  import { Plus, Pencil, Trash2, X, Ticket } from 'lucide-svelte';
+  import Modal from '$lib/components/Modal.svelte';
+  import { Plus, Pencil, Trash2, Ticket } from 'lucide-svelte';
 
   let vouchers = $state([]);
   let loading = $state(true);
@@ -26,6 +27,7 @@
   onMount(load);
 
   async function load() {
+    loading = true;
     const r = await api('/admin/vouchers');
     loading = false;
     if (r.ok) vouchers = r.json.vouchers;
@@ -98,28 +100,35 @@
 <div class="stack-xl">
   <div class="row-between wrap">
     <div class="stack-sm">
-      <span class="eyebrow">Admin</span>
+      <span class="eyebrow eyebrow-bar">Admin</span>
       <h1 class="display-md">Kelola Voucher</h1>
     </div>
-    <button class="btn btn-primary" onclick={openCreate}><Plus size={18} /> Tambah Voucher</button>
+    <button class="btn btn-primary" type="button" onclick={openCreate}>
+      <Plus size={18} aria-hidden="true" /> Tambah Voucher
+    </button>
   </div>
 
   {#if loading}
-    <div class="empty-state"><span class="spinner"></span> Memuat…</div>
+    <div class="empty-state" role="status"><span class="spinner"></span> Memuat…</div>
   {:else if vouchers.length === 0}
-    <div class="empty-state body-md"><Ticket size={18} /> Belum ada voucher. Tambahkan yang pertama.</div>
+    <div class="empty-state stack-sm">
+      <Ticket size={28} strokeWidth={1.6} aria-hidden="true" />
+      <span class="body-md-strong">Belum ada voucher</span>
+      <span class="body-sm text-body">Tambahkan yang pertama lewat tombol di atas.</span>
+    </div>
   {:else}
     <div class="table-wrap">
       <table class="data-table">
+        <caption class="sr-only">Daftar voucher</caption>
         <thead>
           <tr>
-            <th>Kode</th>
-            <th>Diskon</th>
-            <th>Min. Belanja</th>
-            <th>Pemakaian</th>
-            <th>Berlaku s/d</th>
-            <th>Status</th>
-            <th style="text-align: right">Aksi</th>
+            <th scope="col">Kode</th>
+            <th scope="col">Diskon</th>
+            <th scope="col">Min. Belanja</th>
+            <th scope="col">Pemakaian</th>
+            <th scope="col">Berlaku s/d</th>
+            <th scope="col">Status</th>
+            <th scope="col"><span class="sr-only">Aksi</span></th>
           </tr>
         </thead>
         <tbody>
@@ -136,12 +145,18 @@
               <td class="body-sm">{v.used_count}{v.usage_limit > 0 ? ` / ${v.usage_limit}` : ''}</td>
               <td class="body-sm">{v.valid_until ? String(v.valid_until).slice(0, 10) : '—'}</td>
               <td>
-                <span class="badge" class:badge-primary={!v.is_active}>{v.is_active ? 'Aktif' : 'Nonaktif'}</span>
+                <span class="badge" class:badge-primary={!v.is_active}>
+                  {v.is_active ? 'Aktif' : 'Nonaktif'}
+                </span>
               </td>
-              <td>
+              <td class="cell-action">
                 <div class="row" style="justify-content: flex-end">
-                  <button class="icon-btn" title="Edit" onclick={() => openEdit(v)}><Pencil size={16} /></button>
-                  <button class="icon-btn" title="Hapus" onclick={() => remove(v)}><Trash2 size={16} /></button>
+                  <button class="icon-btn" type="button" aria-label={`Edit voucher ${v.code}`} onclick={() => openEdit(v)}>
+                    <Pencil size={16} aria-hidden="true" />
+                  </button>
+                  <button class="icon-btn" type="button" aria-label={`Hapus voucher ${v.code}`} onclick={() => remove(v)}>
+                    <Trash2 size={16} aria-hidden="true" />
+                  </button>
                 </div>
               </td>
             </tr>
@@ -153,21 +168,26 @@
 </div>
 
 {#if modal}
-    <div class="overlay" role="presentation" onclick={(e) => { if (e.target === e.currentTarget) modal = false; }}>
-      <div class="modal card stack-md" role="dialog" aria-modal="true" tabindex="-1">
-      <div class="row-between">
-        <h3 class="display-sub-sm">{editing ? 'Edit Voucher' : 'Tambah Voucher'}</h3>
-        <button class="icon-btn" onclick={() => (modal = false)}><X size={18} /></button>
-      </div>
+  <Modal title={editing ? 'Edit Voucher' : 'Tambah Voucher'} onclose={() => (modal = false)}>
+    <form class="stack-md" onsubmit={(e) => { e.preventDefault(); save(); }}>
       <label class="field">
         <span class="label-text">Kode voucher</span>
-        <input class="input" bind:value={form.code} placeholder="HEMAT10" style="text-transform: uppercase" disabled={!!editing} required />
+        <input
+          class="input"
+          bind:value={form.code}
+          placeholder="HEMAT10"
+          style="text-transform: uppercase"
+          disabled={!!editing}
+          required
+        />
         {#if editing}<span class="caption text-body-mid">Kode tidak dapat diubah.</span>{/if}
       </label>
+
       <label class="field">
         <span class="label-text">Deskripsi</span>
         <input class="input" bind:value={form.description} placeholder="Diskon 10% untuk semua pesanan" />
       </label>
+
       <div class="grid grid-2">
         <label class="field">
           <span class="label-text">Tipe diskon</span>
@@ -181,6 +201,7 @@
           <input class="input" type="number" min="1" bind:value={form.discount_value} required />
         </label>
       </div>
+
       <div class="grid grid-2">
         <label class="field">
           <span class="label-text">Min. belanja (Rp, 0 = bebas)</span>
@@ -191,6 +212,7 @@
           <input class="input" type="number" min="0" bind:value={form.usage_limit} />
         </label>
       </div>
+
       <div class="grid grid-2">
         <label class="field">
           <span class="label-text">Berlaku s/d (opsional)</span>
@@ -204,16 +226,18 @@
           </select>
         </label>
       </div>
+
       <div class="row">
-        <button class="btn btn-primary" onclick={save} disabled={saving}>{saving ? 'Menyimpan…' : 'Simpan'}</button>
-        <button class="btn btn-tertiary" onclick={() => (modal = false)}>Batal</button>
+        <button class="btn btn-primary" type="submit" disabled={saving}>
+          {saving ? 'Menyimpan…' : 'Simpan'}
+        </button>
+        <button class="btn btn-tertiary" type="button" onclick={() => (modal = false)}>Batal</button>
       </div>
-    </div>
-  </div>
+    </form>
+  </Modal>
 {/if}
 
 <style>
-  .stack-xs { display: flex; flex-direction: column; gap: 2px; }
   .clamp { max-width: 260px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  /* .icon-btn, .overlay, .modal sekarang global di app.css */
+  .cell-action { text-align: right; }
 </style>
