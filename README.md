@@ -163,6 +163,7 @@ printku/
 │   │   │   ├── stores.js           # State management
 │   │   │   └── format.js           # Formatting helpers
 │   │   └── app.css                 # Design system
+│   ├── static/products/            # Foto contoh produk + CREDITS.md
 │   ├── package.json
 │   └── Dockerfile
 │
@@ -170,6 +171,22 @@ printku/
 ├── .env.example
 └── README.md
 ```
+
+---
+
+## Gambar Produk
+
+Seed mengisi kolom `products.image_url` dengan path seperti
+`/products/kertas-hvs-a4.jpg`, yang disajikan frontend dari
+`frontend/static/products/`. Foto contoh diambil dari Wikimedia Commons untuk
+keperluan demo; daftar lengkap pembuat dan lisensinya ada di
+`frontend/static/products/CREDITS.md`. Sebagian berlisensi CC BY / CC BY-SA
+sehingga **atribusinya wajib dipertahankan** bila dipakai ulang.
+
+Untuk produksi, ganti dengan foto asli toko — lewat field **URL gambar** di
+halaman admin produk, atau dengan mengubah `image_url` di seed. Bila gambar
+kosong atau gagal dimuat, kartu produk otomatis memakai stiker inisial, jadi
+tampilan tetap rapi tanpa gambar.
 
 ---
 

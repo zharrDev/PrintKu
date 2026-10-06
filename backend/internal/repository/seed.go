@@ -35,10 +35,12 @@ func seedAll(db *sql.DB, cfg *config.Config) error {
 		tx.Exec(catInsert, id, name, typ, Now())
 		return id
 	}
-	prod := func(catID, name string, price, stock int64, desc string) {
+	// Gambar contoh disajikan frontend dari frontend/static/products.
+	// Lisensi & atribusi tiap foto ada di frontend/static/products/CREDITS.md.
+	prod := func(catID, name string, price, stock int64, desc, img string) {
 		tx.Exec(`INSERT INTO products (id, category_id, name, description, price, stock, image_url, is_active, created_at)
-		         VALUES (?, ?, ?, ?, ?, ?, '', 1, ?)`,
-			UUID(), catID, name, desc, price, stock, Now())
+		         VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?)`,
+			UUID(), catID, name, desc, price, stock, img, Now())
 	}
 
 	atk := cat("Alat Tulis Kantor (ATK)", "product")
@@ -46,24 +48,24 @@ func seedAll(db *sql.DB, cfg *config.Config) error {
 	sekolah := cat("Perlengkapan Sekolah", "product")
 	furniture := cat("Furniture Kantor", "product")
 
-	prod(atk, "Pulpen Standard AE7 Hitam", 3000, 120, "Pulpen ballpoint standar dengan tinta hitam, nyaman untuk menulis sehari-hari.")
-	prod(atk, "Pensil 2B Faber-Castell", 5000, 80, "Pensil kayu 2B premium, mudah dihapus dan tidak mudah patah.")
-	prod(atk, "Buku Tulis SiDU 38 Lembar", 3500, 200, "Buku tulis isi 38 lembar, kertas halus dan tebal.")
-	prod(atk, "Penghapus Joyko", 3000, 90, "Penghapus karet putih bersih, tidak meninggalkan noda.")
-	prod(atk, "Penggaris 30cm Kenko", 6000, 40, "Penggaris plastik bening 30cm dengan skala presisi.")
-	prod(atk, "Stabilo Boss Highlighter", 12000, 50, "Highlighter warna-warni dengan tinta tahan lama.")
-	prod(atk, "Lakban Bening 2 inch", 8500, 60, "Lakban bening serbaguna untuk packing dan keseharian.")
-	prod(atk, "Binder Clip No.3", 1500, 200, "Penjepit kertas ukuran sedang, isi 12 pcs.")
-	prod(kertas, "Kertas HVS A4 70gsm (1 rim)", 48000, 30, "Kertas HVS putih 70gsm ukuran A4, 500 lembar per rim.")
-	prod(kertas, "Kertas HVS F4 70gsm (1 rim)", 55000, 25, "Kertas HVS putih 70gsm ukuran F4 folio, 500 lembar per rim.")
-	prod(kertas, "Kertas HVS A3 80gsm (1 rim)", 95000, 15, "Kertas HVS putih 80gsm ukuran A3, 500 lembar per rim.")
-	prod(kertas, "Tinta Epson 003 Black 65ml", 85000, 20, "Botol tinta original Epson 003 warna hitam, isi 65ml.")
-	prod(kertas, "Tinta Epson 664 CMYK 70ml", 95000, 20, "Botol tinta original Epson 664, 1 set 4 botol 70ml.")
-	prod(sekolah, "Tempat Pensil Jepit", 15000, 35, "Tempat pensil kain dengan penutup jepit, motif simple.")
-	prod(sekolah, "Buku Gambar A4", 9000, 45, "Buku gambar ukuran A4, isi 30 halaman kertas gambar.")
-	prod(sekolah, "Map Folder Tali", 12000, 40, "Map plastik tali bening ukuran folio.")
-	prod(furniture, "Rak Buku Mini 3 Tingkat", 85000, 8, "Rak buku mini kayu 3 tingkat, cocok untuk meja kerja.")
-	prod(furniture, "Kursi Lipat Portable", 180000, 6, "Kursi lipat portable kokoh, ringan dan mudah dibawa.")
+	prod(atk, "Pulpen Standard AE7 Hitam", 3000, 120, "Pulpen ballpoint standar dengan tinta hitam, nyaman untuk menulis sehari-hari.", "/products/pulpen-standard-ae7.jpg")
+	prod(atk, "Pensil 2B Faber-Castell", 5000, 80, "Pensil kayu 2B premium, mudah dihapus dan tidak mudah patah.", "/products/pensil-2b.jpg")
+	prod(atk, "Buku Tulis SiDU 38 Lembar", 3500, 200, "Buku tulis isi 38 lembar, kertas halus dan tebal.", "/products/buku-tulis-sidu.jpg")
+	prod(atk, "Penghapus Joyko", 3000, 90, "Penghapus karet putih bersih, tidak meninggalkan noda.", "/products/penghapus-joyko.jpg")
+	prod(atk, "Penggaris 30cm Kenko", 6000, 40, "Penggaris plastik bening 30cm dengan skala presisi.", "/products/penggaris-30cm.jpg")
+	prod(atk, "Stabilo Boss Highlighter", 12000, 50, "Highlighter warna-warni dengan tinta tahan lama.", "/products/stabilo-boss-highlighter.jpg")
+	prod(atk, "Lakban Bening 2 inch", 8500, 60, "Lakban bening serbaguna untuk packing dan keseharian.", "/products/lakban-bening.jpg")
+	prod(atk, "Binder Clip No.3", 1500, 200, "Penjepit kertas ukuran sedang, isi 12 pcs.", "/products/binder-clip.jpg")
+	prod(kertas, "Kertas HVS A4 70gsm (1 rim)", 48000, 30, "Kertas HVS putih 70gsm ukuran A4, 500 lembar per rim.", "/products/kertas-hvs-a4.jpg")
+	prod(kertas, "Kertas HVS F4 70gsm (1 rim)", 55000, 25, "Kertas HVS putih 70gsm ukuran F4 folio, 500 lembar per rim.", "/products/kertas-hvs-f4.jpg")
+	prod(kertas, "Kertas HVS A3 80gsm (1 rim)", 95000, 15, "Kertas HVS putih 80gsm ukuran A3, 500 lembar per rim.", "/products/kertas-hvs-a3.jpg")
+	prod(kertas, "Tinta Epson 003 Black 65ml", 85000, 20, "Botol tinta original Epson 003 warna hitam, isi 65ml.", "/products/tinta-epson-003.jpg")
+	prod(kertas, "Tinta Epson 664 CMYK 70ml", 95000, 20, "Botol tinta original Epson 664, 1 set 4 botol 70ml.", "/products/tinta-epson-664.jpg")
+	prod(sekolah, "Tempat Pensil Jepit", 15000, 35, "Tempat pensil kain dengan penutup jepit, motif simple.", "/products/tempat-pensil-jepit.jpg")
+	prod(sekolah, "Buku Gambar A4", 9000, 45, "Buku gambar ukuran A4, isi 30 halaman kertas gambar.", "/products/buku-gambar-a4.jpg")
+	prod(sekolah, "Map Folder Tali", 12000, 40, "Map plastik tali bening ukuran folio.", "/products/map-folder-tali.jpg")
+	prod(furniture, "Rak Buku Mini 3 Tingkat", 85000, 8, "Rak buku mini kayu 3 tingkat, cocok untuk meja kerja.", "/products/rak-buku-mini.jpg")
+	prod(furniture, "Kursi Lipat Portable", 180000, 6, "Kursi lipat portable kokoh, ringan dan mudah dibawa.", "/products/kursi-lipat-portable.jpg")
 
 	svc := func(name string, price int64, desc string) {
 		tx.Exec(`INSERT INTO print_services (id, name, price_per_page, description, created_at) VALUES (?, ?, ?, ?, ?)`,
