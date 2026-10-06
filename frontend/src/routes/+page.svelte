@@ -30,6 +30,14 @@
     { icon: PackageCheck, title: 'Pilih spesifikasi', desc: 'Warna, ukuran kertas, rangkap, dan finishing.' },
     { icon: Clock, title: 'Ambil atau diantar', desc: 'Lacak status pesanan secara real-time.' },
   ];
+
+  // Fakta layanan (bukan angka klaim) — dipakai di strip bawah hero.
+  const highlights = [
+    { title: 'Harga otomatis', desc: 'Dihitung per halaman, tanpa tanya admin.' },
+    { title: 'Pelacakan real-time', desc: 'Status pesanan ikut berubah sendiri.' },
+    { title: 'Ambil atau antar', desc: 'Pilih sesuai kenyamananmu.' },
+    { title: 'Pembayaran semu', desc: 'Mode sandbox — aman untuk uji coba.' },
+  ];
 </script>
 
 <svelte:head>
@@ -44,7 +52,7 @@
 <section class="band-hero">
   <div class="container hero-grid">
     <div class="stack-xl hero-copy">
-      <span class="eyebrow">Toko ATK & Jasa Cetak Online</span>
+      <span class="eyebrow eyebrow-bar">Toko ATK & Jasa Cetak Online</span>
       <h1 class="display-xl">Semua kebutuhan tulis & cetak, satu tempat.</h1>
       <p class="body-lg text-body">
         Belanja alat tulis kantor, sekolah, dan kertas — atau upload file untuk
@@ -63,18 +71,32 @@
     </div>
     <div class="hero-visual">
       <div class="mock-card">
-        <span class="eyebrow">Ringkasan Print</span>
-        <h3 class="display-sub-sm" style="margin: 8px 0">makalah-sistem.pdf</h3>
+        <div class="row-between">
+          <span class="eyebrow">Ringkasan Print</span>
+          <span class="badge badge-success"><span class="dot"></span> Siap</span>
+        </div>
+        <h3 class="display-sub-sm">makalah-sistem.pdf</h3>
         <div class="mock-row">
-          <span class="caption text-body-mid">4 halaman · Hitam Putih · A4</span>
+          <span class="caption text-body-mid">4 halaman · Hitam Putih · A4 · 1x</span>
         </div>
         <div class="mock-row row-between">
-          <span class="body-md">Estimasi</span>
-          <span class="body-md-strong" style="color: var(--primary)">Rp 2.000</span>
+          <span class="body-sm text-body">Total estimasi</span>
+          <span class="display-sub-sm text-primary">Rp 2.000</span>
         </div>
-        <button class="btn btn-primary" disabled style="width: 100%">Lanjut ke Pembayaran</button>
-        <span class="caption text-body-mid" style="margin-top: 8px">Status: siap diambil dalam 30 menit</span>
+        <button class="btn btn-primary" disabled>Lanjut ke Pembayaran</button>
+        <span class="caption text-body-mid">Estimasi selesai ±30 menit setelah pembayaran dikonfirmasi.</span>
       </div>
+    </div>
+  </div>
+
+  <div class="container mt-4">
+    <div class="stats">
+      {#each highlights as h (h.title)}
+        <div class="stat">
+          <span class="body-md-strong">{h.title}</span>
+          <span class="caption text-body-mid">{h.desc}</span>
+        </div>
+      {/each}
     </div>
   </div>
 </section>
@@ -84,14 +106,14 @@
   <div class="container stack-xl">
     <div class="row-between wrap">
       <div class="stack-sm">
-        <span class="eyebrow">Jasa Cetak</span>
+        <span class="eyebrow eyebrow-bar">Jasa Cetak</span>
         <h2 class="display-lg">Layanan yang kami siapkan untukmu</h2>
       </div>
     </div>
     <div class="grid grid-4">
       {#each services as s (s.title)}
-        <a href={s.href} class="card stack-md service-card">
-          <s.icon size={28} strokeWidth={1.75} />
+        <a href={s.href} class="card card-hover stack-md">
+          <span class="icon-chip"><s.icon size={24} strokeWidth={2} /></span>
           <h3 class="display-sub-sm">{s.title}</h3>
           <p class="body-sm text-body">{s.desc}</p>
         </a>
@@ -103,7 +125,7 @@
 <!-- PIPELINE -->
 <section class="band-hero">
   <div class="container stack-xl">
-    <span class="eyebrow">Cara Kerja</span>
+    <span class="eyebrow eyebrow-bar">Cara Kerja</span>
     <h2 class="display-lg">Dari file jadi pesanan, kurang dari satu menit</h2>
     <div class="grid grid-3">
       {#each steps as st, i (st.title)}
@@ -125,7 +147,7 @@
   <div class="container stack-xl">
     <div class="row-between wrap">
       <div class="stack-sm">
-        <span class="eyebrow">Katalog</span>
+        <span class="eyebrow eyebrow-bar">Katalog</span>
         <h2 class="display-lg">Produk pilihan minggu ini</h2>
       </div>
       <a href="/katalog" class="btn btn-tertiary">Lihat Semua <ArrowRight size={18} /></a>
@@ -146,7 +168,7 @@
 <section class="band-hero">
   <div class="container stack-xl">
     <div class="stack-sm text-center" style="align-items: center">
-      <span class="eyebrow">Tarif Cetak</span>
+      <span class="eyebrow eyebrow-bar">Tarif Cetak</span>
       <h2 class="display-lg">Harga transparan, tanpa biaya tersembunyi</h2>
     </div>
     <div class="grid grid-3">
@@ -203,14 +225,18 @@
     transform: rotate(1.5deg);
   }
   .mock-row { padding: var(--space-sm) 0; border-bottom: var(--border-thin); }
-  .service-card {
-    transition: transform var(--dur) var(--ease),
-                box-shadow var(--dur) var(--ease),
-                background-color var(--dur) var(--ease);
-  }
-  .service-card:hover {
-    transform: translate(-2px, -2px) rotate(1.5deg);
-    box-shadow: var(--shadow-lg);
+  .mock-card :global(.badge) { font-size: 12px; }
+  .icon-chip {
+    width: 52px;
+    height: 52px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-soft);
+    border: var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-xs);
+    color: var(--ink);
   }
   .on-primary { color: var(--on-primary) !important; }
   @media (max-width: 1023px) {

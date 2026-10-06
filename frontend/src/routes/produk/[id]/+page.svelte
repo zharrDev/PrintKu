@@ -41,13 +41,8 @@
     {#if product}
       <a href="/katalog" class="btn-text" style="align-self: flex-start"><ArrowLeft size={16} /> Kembali ke katalog</a>
       <div class="detail-grid">
-        <div class="thumb">
-          <svg viewBox="0 0 400 300" aria-hidden="true">
-            <rect width="400" height="300" rx="16" class="thumb-bg" />
-            <text x="200" y="175" text-anchor="middle" font-size="100" font-weight="700" class="thumb-fg">
-              {product.name[0]}
-            </text>
-          </svg>
+        <div class="thumb" aria-hidden="true">
+          <span class="thumb-letter">{product.name[0]}</span>
         </div>
         <div class="card stack-xl">
           <div class="row wrap">
@@ -87,10 +82,33 @@
     gap: var(--space-3xl);
     align-items: start;
   }
-  .thumb svg { width: 100%; border-radius: var(--radius-lg); }
-  /* Warna SVG lewat CSS supaya ikut token, bukan hard-coded hex. */
-  .thumb-bg { fill: var(--canvas-soft); }
-  .thumb-fg { fill: var(--ink); }
+  /* Placeholder produk: kertas berbintik + "stiker" inisial yang miring. */
+  .thumb {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border: var(--border);
+    border-radius: var(--radius-lg);
+    background-color: var(--canvas-soft);
+    background-image: radial-gradient(circle at 1px 1px, rgba(32, 21, 21, 0.09) 1px, transparent 0);
+    background-size: 18px 18px;
+    display: grid;
+    place-items: center;
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+  }
+  .thumb-letter {
+    font-family: var(--font-display);
+    font-size: 96px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--ink);
+    background: var(--primary-soft);
+    border: var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg) var(--space-3xl);
+    box-shadow: var(--shadow-sm);
+    transform: rotate(-3deg);
+  }
   .qty {
     display: inline-flex;
     align-items: center;

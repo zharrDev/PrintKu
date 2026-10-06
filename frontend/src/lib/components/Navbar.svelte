@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import { page } from '$app/state';
-  import { ShoppingCart, Menu, X } from 'lucide-svelte';
+  import { ShoppingCart, Menu, X, Printer } from 'lucide-svelte';
   import { userStore, cartStore, loadSession } from '$lib/stores.js';
   import { api } from '$lib/api.js';
 
@@ -33,7 +33,7 @@
 <nav class="nav">
   <div class="container nav-inner">
     <a href="/" class="brand" aria-label="PrintKu beranda">
-      <span class="brand-mark">P</span>
+      <span class="brand-mark" aria-hidden="true"><Printer size={18} strokeWidth={2.4} /></span>
       <span class="brand-name display-xs">PrintKu</span>
     </a>
 

@@ -65,12 +65,7 @@
         <div class="card stack-md">
           {#each items as it (it.cart_item_id)}
             <div class="cart-item">
-              <div class="item-thumb">
-                <svg viewBox="0 0 64 48" aria-hidden="true">
-                  <rect width="64" height="48" rx="8" class="thumb-bg" />
-                  <text x="32" y="34" text-anchor="middle" font-size="20" font-weight="700" class="thumb-fg">{it.name[0]}</text>
-                </svg>
-              </div>
+              <div class="item-thumb" aria-hidden="true">{it.name[0]}</div>
               <div class="stack-sm" style="flex: 1; min-width: 0">
                 <a href={`/produk/${it.id}`} class="body-md-strong">{it.name}</a>
                 <span class="caption text-body-mid">{formatRupiah(it.price)} / unit</span>
@@ -120,7 +115,20 @@
     border-bottom: 1px solid var(--mute);
   }
   .cart-item:last-child { border-bottom: none; }
-  .item-thumb svg { width: 56px; border: 1px solid var(--mute); border-radius: var(--radius-sm); }
+  .item-thumb {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    background: var(--primary-soft);
+    border: var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-xs);
+  }
   .qty { display: inline-flex; align-items: center; border: 1px solid var(--ink); border-radius: var(--radius-sm); overflow: hidden; }
   .qty-btn {
     background: var(--canvas);

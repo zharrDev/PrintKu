@@ -1,9 +1,13 @@
+<script>
+  import { Printer } from 'lucide-svelte';
+</script>
+
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
       <div class="stack-md">
         <a href="/" class="brand">
-          <span class="brand-mark">P</span>
+          <span class="brand-mark" aria-hidden="true"><Printer size={18} strokeWidth={2.4} /></span>
           <span class="brand-name">PrintKu</span>
         </a>
         <p class="body-sm">

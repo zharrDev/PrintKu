@@ -3,9 +3,9 @@
   import { CircleCheckBig, CircleAlert, Info } from 'lucide-svelte';
 </script>
 
-<div class="toast-stack">
+<div class="toast-stack" role="region" aria-live="polite" aria-label="Notifikasi">
   {#each $toasts as t (t.id)}
-    <div class="toast toast-{t.type}">
+    <div class="toast toast-{t.type}" role={t.type === 'error' ? 'alert' : 'status'}>
       {#if t.type === 'error'}
         <CircleAlert size={18} />
       {:else if t.type === 'success'}

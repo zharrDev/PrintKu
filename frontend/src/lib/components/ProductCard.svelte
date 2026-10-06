@@ -1,5 +1,4 @@
 <script>
-  import { onMount } from 'svelte';
   import { toast } from '$lib/stores.js';
   import { api } from '$lib/api.js';
   import { formatRupiah } from '$lib/format.js';
@@ -28,11 +27,8 @@
 
 <div class="card card-hover product-card">
   <a href={`/produk/${product.id}`}>
-    <div class="thumb">
-      <svg viewBox="0 0 64 64" aria-hidden="true">
-        <rect width="64" height="64" rx="8" class="thumb-bg" />
-        <text x="32" y="44" text-anchor="middle" font-size="26" font-weight="700" class="thumb-fg">{product.name[0]}</text>
-      </svg>
+    <div class="thumb" aria-hidden="true">
+      <span class="thumb-letter">{product.name[0]}</span>
     </div>
     <div class="stack-sm body">
       <span class="badge">{product.category_name || 'Produk'}</span>
@@ -58,10 +54,35 @@
 
 <style>
   .product-card { display: flex; flex-direction: column; gap: var(--space-lg); }
-  .thumb svg { width: 100%; aspect-ratio: 1.6; border-radius: var(--radius-sm); }
-  /* Warna SVG lewat CSS supaya ikut token, bukan hard-coded hex. */
-  .thumb-bg { fill: var(--canvas); }
-  .thumb-fg { fill: var(--ink); }
+  /* Placeholder produk: kertas berbintik + "stiker" inisial yang miring,
+     jadi tetap menarik walau produk belum punya foto asli. */
+  .thumb {
+    position: relative;
+    aspect-ratio: 1.6;
+    border: var(--border);
+    border-radius: var(--radius-md);
+    background-color: var(--canvas);
+    background-image: radial-gradient(circle at 1px 1px, rgba(32, 21, 21, 0.09) 1px, transparent 0);
+    background-size: 14px 14px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+  .thumb-letter {
+    font-family: var(--font-display);
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--ink);
+    background: var(--primary-soft);
+    border: var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm) var(--space-xl);
+    box-shadow: var(--shadow-xs);
+    transform: rotate(-3deg);
+    transition: transform var(--dur) var(--ease);
+  }
+  .card-hover:hover .thumb-letter { transform: rotate(-3deg) scale(1.06); }
   .clamp {
     display: -webkit-box;
     -webkit-line-clamp: 2;
