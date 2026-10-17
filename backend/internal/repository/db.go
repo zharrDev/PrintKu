@@ -153,7 +153,6 @@ CREATE TABLE IF NOT EXISTS vouchers (
   created_at TEXT NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_orders_user ON orders(user_id);
-CREATE INDEX IF NOT EXISTS idx_print_jobs_user ON print_jobs(user_id);
 CREATE INDEX IF NOT EXISTS idx_print_jobs_order ON print_jobs(order_id);
 CREATE INDEX IF NOT EXISTS idx_file_uploads_user ON file_uploads(user_id);
 CREATE INDEX IF NOT EXISTS idx_payments_order ON payments(order_id);
@@ -173,6 +172,11 @@ func migrate(db *sql.DB) {
 	for _, stmt := range adds {
 		db.Exec(stmt) // abaikan error bila kolom sudah ada
 	}
+
+	// Indeks untuk kolom hasil migrasi harus dibuat SETELAH kolomnya ada —
+	// bila diletakkan di string schema, DB lama yang belum punya kolom
+	// user_id akan gagal saat Open() karena schema dieksekusi lebih dulu.
+	db.Exec(`CREATE INDEX IF NOT EXISTS idx_print_jobs_user ON print_jobs(user_id)`)
 
 	// Backfill kepemilikan file lama dari print job yang sudah terikat order.
 	// Draft lama tanpa order tidak punya pemilik yang bisa dipastikan,
