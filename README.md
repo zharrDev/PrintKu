@@ -183,6 +183,15 @@ keperluan demo; daftar lengkap pembuat dan lisensinya ada di
 `frontend/static/products/CREDITS.md`. Sebagian berlisensi CC BY / CC BY-SA
 sehingga **atribusinya wajib dipertahankan** bila dipakai ulang.
 
+Database yang dibuat **sebelum** foto ditambahkan tidak perlu dihapus: setiap
+kali server start, seed mengisi `image_url` yang masih kosong untuk produk
+bawaan (idempoten, dan foto yang sudah diubah admin tidak ditimpa). Untuk
+menjalankannya tanpa menyalakan server:
+
+```bash
+cd backend && DATABASE_PATH=./data/printku.db go run ./cmd/server -seed
+```
+
 Untuk produksi, ganti dengan foto asli toko — lewat field **URL gambar** di
 halaman admin produk, atau dengan mengubah `image_url` di seed. Bila gambar
 kosong atau gagal dimuat, kartu produk otomatis memakai stiker inisial, jadi
