@@ -23,5 +23,9 @@ foto asli toko sebelum dipakai produksi.
 | `/products/tempat-pensil-jepit.jpg` | File:School pencil cases.jpg | ABX | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) | [Commons](https://commons.wikimedia.org/wiki/File:School_pencil_cases.jpg) |
 | `/products/buku-gambar-a4.jpg` | File:Maruman Sketchbook.jpg | 高砂の浦 | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) | [Commons](https://commons.wikimedia.org/wiki/File:Maruman_Sketchbook.jpg) |
 | `/products/map-folder-tali.jpg` | File:Schnellhefter Kunststoff.jpg | Rico Heil (silmaril) | [CC BY-SA 3.0](http://creativecommons.org/licenses/by-sa/3.0/) | [Commons](https://commons.wikimedia.org/wiki/File:Schnellhefter_Kunststoff.jpg) |
-| `/products/rak-buku-mini.jpg` | File:Bookcase in Olten.jpg | geosketch | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) | [Commons](https://commons.wikimedia.org/wiki/File:Bookcase_in_Olten.jpg) |
+| `/products/rak-buku-mini.jpg` | File:Small wheeled bookshelf belonging to Reiters Books.jpg | Ser Amantio di Nicolao | [CC0](http://creativecommons.org/publicdomain/zero/1.0/deed.en) | [Commons](https://commons.wikimedia.org/wiki/File:Small_wheeled_bookshelf_belonging_to_Reiters_Books.jpg) |
 | `/products/kursi-lipat-portable.jpg` | File:Vamdrup folding chair.jpg | Photographed by User:Bullenwächter | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) | [Commons](https://commons.wikimedia.org/wiki/File:Vamdrup_folding_chair.jpg) |
+
+Catatan: `/products/kertas-hvs-a3.jpg` masih memakai foto rim **A4** karena
+belum ditemukan foto rim A3 berlisensi jelas di Commons. Ganti dengan foto
+toko sendiri lewat field **URL gambar** di halaman admin produk.
