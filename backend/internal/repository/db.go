@@ -99,6 +99,7 @@ CREATE TABLE IF NOT EXISTS order_items (
 );
 CREATE TABLE IF NOT EXISTS print_jobs (
   id TEXT PRIMARY KEY,
+  user_id TEXT REFERENCES users(id),
   order_id TEXT REFERENCES orders(id) ON DELETE SET NULL,
   file_url TEXT NOT NULL,
   file_name TEXT DEFAULT '',
@@ -145,6 +146,7 @@ CREATE TABLE IF NOT EXISTS vouchers (
   created_at TEXT NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_orders_user ON orders(user_id);
+CREATE INDEX IF NOT EXISTS idx_print_jobs_user ON print_jobs(user_id);
 CREATE INDEX IF NOT EXISTS idx_print_jobs_order ON print_jobs(order_id);
 CREATE INDEX IF NOT EXISTS idx_payments_order ON payments(order_id);
 CREATE INDEX IF NOT EXISTS idx_products_category ON products(category_id);
@@ -158,6 +160,7 @@ func migrate(db *sql.DB) {
 		`ALTER TABLE orders ADD COLUMN subtotal INTEGER NOT NULL DEFAULT 0`,
 		`ALTER TABLE orders ADD COLUMN discount INTEGER NOT NULL DEFAULT 0`,
 		`ALTER TABLE orders ADD COLUMN voucher_code TEXT DEFAULT ''`,
+		`ALTER TABLE print_jobs ADD COLUMN user_id TEXT REFERENCES users(id)`,
 	}
 	for _, stmt := range adds {
 		db.Exec(stmt) // abaikan error bila kolom sudah ada

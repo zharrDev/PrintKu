@@ -303,6 +303,18 @@ func TestSmoke(t *testing.T) {
 		if mget(j, "pricing", "total").(float64) != expected {
 			t.Fatalf("re-spec back: total %v", mget(j, "pricing", "total"))
 		}
+
+		// Keamanan ownership: draft milik user tidak boleh dilihat/diubah
+		// user lain (admin sekalipun — endpoint ini user-scoped).
+		st, _ = api("GET", "/api/print-jobs/"+printJobID, nil, adminToken)
+		if st != 403 {
+			t.Fatalf("draft job bocor ke user lain: GET %d", st)
+		}
+		st, _ = api("PATCH", "/api/print-jobs/"+printJobID, map[string]any{"copies": 5}, adminToken)
+		if st != 403 {
+			t.Fatalf("draft job bisa diubah user lain: PATCH %d", st)
+		}
+		ok("draft print job ditolak untuk user lain (403)")
 	}
 
 	// ===== ORDER PRINT + STATUS REAL-TIME =====

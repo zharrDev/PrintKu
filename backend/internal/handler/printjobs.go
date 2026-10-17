@@ -289,9 +289,9 @@ func (s *Server) createPrintJob(c *gin.Context) {
 
 	id := newID()
 	if _, err := s.DB.Exec(
-		`INSERT INTO print_jobs (id, order_id, file_url, file_name, page_count, color_mode, paper_size, copies, duplex, finishing_option_id, estimated_price, status, created_at)
-		 VALUES (?, NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'menunggu', ?)`,
-		id, body.FileURL, body.FileName, pageCount, body.ColorMode, body.PaperSize, copies, duplex,
+		`INSERT INTO print_jobs (id, user_id, order_id, file_url, file_name, page_count, color_mode, paper_size, copies, duplex, finishing_option_id, estimated_price, status, created_at)
+		 VALUES (?, ?, NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'menunggu', ?)`,
+		id, u.ID, body.FileURL, body.FileName, pageCount, body.ColorMode, body.PaperSize, copies, duplex,
 		nilableID(finishing), pricing.Total, repository.Now(),
 	); err != nil {
 		s.jsonErr(c, err)
@@ -500,19 +500,26 @@ func (s *Server) patchPrintJobStatus(c *gin.Context) {
 }
 
 // userOwnsPrintJob memeriksa apakah print job dimiliki oleh user.
+//
+// Aturan:
+//  1. Bila job punya user_id (semua job baru), user_id itu yang menentukan.
+//  2. Bila user_id kosong (data lama sebelum kolom ini ada) tapi job sudah
+//     terikat order, kepemilikan diturunkan dari pemilik order.
+//  3. Draft lama tanpa user_id tidak dapat dipastikan pemiliknya — tolak.
 func (s *Server) userOwnsPrintJob(c *gin.Context, userID, jobID string) bool {
 	job, err := s.q1(c, `SELECT * FROM print_jobs WHERE id = ?`, jobID)
 	if err != nil || job == nil {
 		return false
 	}
-	// Jika print job belum terkait order, izinkan (user baru upload)
-	if v := toStr(job["order_id"]); v == "" {
-		return true
+	if v := toStr(job["user_id"]); v != "" {
+		return v == userID
 	}
-	// Cek ownership via order
-	order, err := getRow(s.DB, `SELECT user_id FROM orders WHERE id = ?`, toStr(job["order_id"]))
-	if err != nil || order == nil {
-		return false
+	if v := toStr(job["order_id"]); v != "" {
+		order, err := getRow(s.DB, `SELECT user_id FROM orders WHERE id = ?`, v)
+		if err != nil || order == nil {
+			return false
+		}
+		return toStr(order["user_id"]) == userID
 	}
-	return toStr(order["user_id"]) == userID
+	return false
 }
