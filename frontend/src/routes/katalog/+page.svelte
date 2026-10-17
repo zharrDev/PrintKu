@@ -87,11 +87,19 @@
         <button class="btn btn-primary" onclick={applyFilters}>Cari</button>
       </div>
       <div class="row wrap filter-row">
-        <button class:chip-active={!category} class="chip" onclick={() => { category = ''; applyFilters(); }}>Semua</button>
+        <button
+          type="button"
+          class="chip"
+          class:chip-active={!category}
+          aria-pressed={!category}
+          onclick={() => { category = ''; applyFilters(); }}
+        >Semua</button>
         {#each categories as c (c.id)}
           <button
-            class:chip-active={category === c.id}
+            type="button"
             class="chip"
+            class:chip-active={category === c.id}
+            aria-pressed={category === c.id}
             onclick={() => { category = c.id; applyFilters(); }}
           >{c.name}</button>
         {/each}

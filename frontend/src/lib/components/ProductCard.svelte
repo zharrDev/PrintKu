@@ -106,6 +106,7 @@
   .card-hover:hover .thumb-img { transform: scale(1.05); }
   .clamp {
     display: -webkit-box;
+    line-clamp: 2;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;

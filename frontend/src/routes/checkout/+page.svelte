@@ -244,7 +244,9 @@
                 <span class="body-sm-strong">{appliedVoucher.code}</span>
                 {#if appliedVoucher.description}<span class="caption text-body-mid clamp">{appliedVoucher.description}</span>{/if}
               </div>
-              <button class="icon-btn" title="Lepas voucher" onclick={removeVoucher}><X size={15} /></button>
+              <button class="icon-btn" type="button" aria-label="Lepas voucher" title="Lepas voucher" onclick={removeVoucher}>
+                <X size={15} aria-hidden="true" />
+              </button>
             </div>
           {:else}
             <div class="row">

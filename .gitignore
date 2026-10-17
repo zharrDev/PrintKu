@@ -38,7 +38,6 @@ backend/.env.local
 # ===== Frontend build / SvelteKit =====
 frontend/.svelte-kit/
 frontend/build/
-frontend/.svelte-kit/
 frontend/dist/
 frontend/build-log.txt
 

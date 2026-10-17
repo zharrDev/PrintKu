@@ -85,9 +85,19 @@
                 <span class="caption text-body-mid">{formatRupiah(it.price)} / unit</span>
               </div>
               <div class="qty">
-                <button class="qty-btn" onclick={() => changeQty(it.cart_item_id, it.quantity - 1)}><Minus size={16} /></button>
+                <button
+                  type="button"
+                  class="qty-btn"
+                  aria-label={`Kurangi jumlah ${it.name}`}
+                  onclick={() => changeQty(it.cart_item_id, it.quantity - 1)}
+                ><Minus size={16} aria-hidden="true" /></button>
                 <input class="qty-input" type="number" min="1" bind:value={it.quantity} onchange={(e) => changeQty(it.cart_item_id, Math.max(1, Number(e.currentTarget.value) || 1))} />
-                <button class="qty-btn" onclick={() => changeQty(it.cart_item_id, it.quantity + 1)}><Plus size={16} /></button>
+                <button
+                  type="button"
+                  class="qty-btn"
+                  aria-label={`Tambah jumlah ${it.name}`}
+                  onclick={() => changeQty(it.cart_item_id, it.quantity + 1)}
+                ><Plus size={16} aria-hidden="true" /></button>
               </div>
               <span class="body-md-strong item-total">{formatRupiah(it.price * it.quantity)}</span>
               <button class="remove-btn" aria-label="Hapus" onclick={() => removeItem(it.cart_item_id)}><Trash2 size={18} /></button>

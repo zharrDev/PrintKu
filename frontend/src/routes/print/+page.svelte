@@ -133,7 +133,12 @@
         onclick={pickFile}
         role="button"
         tabindex="0"
-        onkeydown={(e) => e.key === 'Enter' && pickFile()}
+        onkeydown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            pickFile();
+          }
+        }}
       >
         <input bind:this={fileInput} type="file" accept={ACCEPTED} class="hidden-input" onchange={handleFile} />
         {#if uploading}
@@ -144,7 +149,7 @@
           <CloudUpload size={44} strokeWidth={1.5} style="color: var(--primary)" />
           <span class="display-sub-sm">Tarik & letakkan file di sini</span>
           <span class="body-sm text-body-mid">atau klik untuk memilih — PDF, DOCX, JPG, PNG (maks 20MB)</span>
-          <button class="btn btn-primary btn-sm">Pilih File</button>
+          <span class="btn btn-primary btn-sm" aria-hidden="true">Pilih File</span>
         {/if}
       </div>
 
@@ -173,7 +178,13 @@
             <h3 class="display-sub-sm">Warna & ukuran kertas</h3>
             <div class="grid grid-2">
               {#each options.colorModes as cm (cm.id)}
-                <button class="opt-card" class:opt-active={spec.colorMode === cm.id} onclick={() => { spec.colorMode = cm.id; updateQuote(); }}>
+                <button
+                  type="button"
+                  class="opt-card"
+                  class:opt-active={spec.colorMode === cm.id}
+                  aria-pressed={spec.colorMode === cm.id}
+                  onclick={() => { spec.colorMode = cm.id; updateQuote(); }}
+                >
                   <span class="body-md-strong">{cm.name}</span>
                   <span class="caption text-body-mid">
                     {cm.id === 'bw' ? 'Rp 500' : 'Rp 1.500'} / halaman (A4)
@@ -183,7 +194,13 @@
             </div>
             <div class="row wrap mt-1">
               {#each options.paperSizes as ps (ps.id)}
-                <button class="chip" class:chip-active={spec.paperSize === ps.id} onclick={() => { spec.paperSize = ps.id; updateQuote(); }}>
+                <button
+                  type="button"
+                  class="chip"
+                  class:chip-active={spec.paperSize === ps.id}
+                  aria-pressed={spec.paperSize === ps.id}
+                  onclick={() => { spec.paperSize = ps.id; updateQuote(); }}
+                >
                   {ps.name}
                 </button>
               {/each}
@@ -195,12 +212,28 @@
             <div class="row">
               <span class="body-md">Jumlah rangkap</span>
               <div class="qty">
-                <button class="qty-btn" onclick={() => { spec.copies = Math.max(1, spec.copies - 1); updateQuote(); }}><Minus size={16} /></button>
+                <button
+                  type="button"
+                  class="qty-btn"
+                  aria-label="Kurangi jumlah rangkap"
+                  onclick={() => { spec.copies = Math.max(1, spec.copies - 1); updateQuote(); }}
+                ><Minus size={16} aria-hidden="true" /></button>
                 <input class="qty-input" type="number" min="1" bind:value={spec.copies} onchange={updateQuote} />
-                <button class="qty-btn" onclick={() => { spec.copies = Math.min(50, spec.copies + 1); updateQuote(); }}><Plus size={16} /></button>
+                <button
+                  type="button"
+                  class="qty-btn"
+                  aria-label="Tambah jumlah rangkap"
+                  onclick={() => { spec.copies = Math.min(50, spec.copies + 1); updateQuote(); }}
+                ><Plus size={16} aria-hidden="true" /></button>
               </div>
             </div>
-            <button class="duplex-btn" class:opt-active={spec.duplex} onclick={() => { spec.duplex = !spec.duplex; updateQuote(); }}>
+            <button
+              type="button"
+              class="duplex-btn"
+              class:opt-active={spec.duplex}
+              aria-pressed={spec.duplex}
+              onclick={() => { spec.duplex = !spec.duplex; updateQuote(); }}
+            >
               <span class="body-md-strong">Cetak dua sisi (duplex)</span>
               <span class="caption text-body-mid">Hemat kertas — berlaku untuk dokumen genap ganjil</span>
             </button>
