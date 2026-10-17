@@ -113,6 +113,13 @@ CREATE TABLE IF NOT EXISTS print_jobs (
   status TEXT NOT NULL DEFAULT 'menunggu',
   created_at TEXT NOT NULL
 );
+CREATE TABLE IF NOT EXISTS file_uploads (
+  stored_name TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  original_name TEXT DEFAULT '',
+  size INTEGER NOT NULL DEFAULT 0,
+  created_at TEXT NOT NULL
+);
 CREATE TABLE IF NOT EXISTS payments (
   id TEXT PRIMARY KEY,
   order_id TEXT NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
@@ -148,6 +155,7 @@ CREATE TABLE IF NOT EXISTS vouchers (
 CREATE INDEX IF NOT EXISTS idx_orders_user ON orders(user_id);
 CREATE INDEX IF NOT EXISTS idx_print_jobs_user ON print_jobs(user_id);
 CREATE INDEX IF NOT EXISTS idx_print_jobs_order ON print_jobs(order_id);
+CREATE INDEX IF NOT EXISTS idx_file_uploads_user ON file_uploads(user_id);
 CREATE INDEX IF NOT EXISTS idx_payments_order ON payments(order_id);
 CREATE INDEX IF NOT EXISTS idx_products_category ON products(category_id);
 CREATE INDEX IF NOT EXISTS idx_vouchers_code ON vouchers(code);
@@ -165,6 +173,14 @@ func migrate(db *sql.DB) {
 	for _, stmt := range adds {
 		db.Exec(stmt) // abaikan error bila kolom sudah ada
 	}
+
+	// Backfill kepemilikan file lama dari print job yang sudah terikat order.
+	// Draft lama tanpa order tidak punya pemilik yang bisa dipastikan,
+	// jadi sengaja tidak diisi (aksesnya ditolak oleh ownership check).
+	db.Exec(`INSERT OR IGNORE INTO file_uploads (stored_name, user_id, original_name, size, created_at)
+		SELECT DISTINCT substr(pj.file_url, length('/api/files/download/') + 1), o.user_id, pj.file_name, 0, pj.created_at
+		FROM print_jobs pj JOIN orders o ON o.id = pj.order_id
+		WHERE pj.order_id IS NOT NULL AND pj.file_url LIKE '/api/files/download/%'`)
 }
 
 func Open(cfg *config.Config) (*sql.DB, error) {

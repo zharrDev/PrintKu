@@ -262,6 +262,18 @@ func TestSmoke(t *testing.T) {
 		}
 		ok(fmt.Sprintf("upload PDF -> terdeteksi %s halaman", str(mget(up, "upload", "pageCount"))))
 
+		// Keamanan file: pemilik boleh unduh, user lain (admin sekalipun) tidak.
+		storedName := str(mget(up, "upload", "storedName"))
+		stOwner, _ := api("GET", "/api/files/download/"+storedName, nil, token)
+		if stOwner != 200 {
+			t.Fatalf("pemilik gagal unduh file: %d", stOwner)
+		}
+		stOther, _ := api("GET", "/api/files/download/"+storedName, nil, adminToken)
+		if stOther != 403 {
+			t.Fatalf("file bocor ke user lain: %d", stOther)
+		}
+		ok("unduh file: pemilik 200, user lain 403")
+
 		_, opts := api("GET", "/api/print-jobs/options", nil, "")
 		var finishingID string
 		for _, f := range arr(mget(opts, "finishingOptions")) {

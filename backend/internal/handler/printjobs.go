@@ -119,6 +119,17 @@ func (s *Server) uploadFile(c *gin.Context) {
 		return
 	}
 
+	// Catat kepemilikan file — sumber kebenaran untuk pemeriksaan akses
+	// unduhan (menggantikan tebakan lewat print job yang bisa keliru).
+	u := s.user(c)
+	if _, err := s.DB.Exec(
+		`INSERT INTO file_uploads (stored_name, user_id, original_name, size, created_at) VALUES (?, ?, ?, ?, ?)`,
+		storedName, u.ID, originalName, file.Size, repository.Now(),
+	); err != nil {
+		s.jsonErr(c, err)
+		return
+	}
+
 	data, err := os.ReadFile(dst)
 	if err != nil {
 		s.jsonErr(c, err)

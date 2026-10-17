@@ -45,47 +45,35 @@ func (s *Server) downloadFile(c *gin.Context) {
 }
 
 // userOwnsFile memeriksa apakah file dimiliki oleh user.
-// File dimiliki jika:
-// 1. File merupakan upload user (berdasarkan print_jobs yang menggunakan file tersebut)
-// 2. File merupakan bagian dari order milik user
+//
+// Aturan:
+//  1. File yang diunggah user tercatat di tabel file_uploads — inilah
+//     pemilik yang sebenarnya, terverifikasi saat upload.
+//  2. File tetap boleh diakses pemilik order yang memakai file tersebut
+//     (menutup data lama yang sudah terikat pesanan).
+//
+// File tanpa catatan upload dan tanpa order tidak dapat diverifikasi
+// pemiliknya, sehingga aksesnya ditolak (bukan diloloskan).
 func (s *Server) userOwnsFile(userID, filename string) bool {
-	// Cek apakah file digunakan oleh print job yang dimiliki user
 	var count int
-	err := s.DB.QueryRow(`
-		SELECT COUNT(*) FROM print_jobs pj
-		WHERE pj.file_url LIKE ?
-		AND (
-			pj.order_id IS NULL
-			OR EXISTS (
-				SELECT 1 FROM orders o
-				WHERE o.id = pj.order_id AND o.user_id = ?
-			)
-			OR EXISTS (
-				SELECT 1 FROM print_jobs pj2
-				WHERE pj2.id = pj.id AND pj2.order_id IS NULL
-			)
-		)
-	`, "%"+filename, userID).Scan(&count)
-	if err != nil {
-		return false
-	}
-
-	// Jika file belum terkait order, izinkan upload sendiri
-	// (file baru diupload, belum masuk order)
-	var fileExists int
-	err = s.DB.QueryRow(`
-		SELECT COUNT(*) FROM print_jobs pj
-		WHERE pj.file_url LIKE ?
-	`, "%"+filename).Scan(&fileExists)
-	if err != nil {
-		return false
-	}
-
-	// Jika file tidak ada di print_jobs manapun, mungkin baru diupload
-	// Izinkan (user baru upload, belum create print job)
-	if fileExists == 0 {
+	err := s.DB.QueryRow(
+		`SELECT COUNT(*) FROM file_uploads WHERE stored_name = ? AND user_id = ?`,
+		filename, userID).Scan(&count)
+	if err == nil && count > 0 {
 		return true
 	}
 
+	fileURL := "/api/files/download/" + filename
+	err = s.DB.QueryRow(`
+		SELECT COUNT(*) FROM print_jobs pj
+		WHERE pj.file_url = ?
+		AND pj.order_id IS NOT NULL
+		AND EXISTS (
+			SELECT 1 FROM orders o
+			WHERE o.id = pj.order_id AND o.user_id = ?
+		)`, fileURL, userID).Scan(&count)
+	if err != nil {
+		return false
+	}
 	return count > 0
 }
