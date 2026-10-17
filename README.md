@@ -244,13 +244,15 @@ node build
 ## Pemeriksaan Kualitas
 
 ```bash
-npm run check          # svelte-check: error & warning Svelte
-npm run a11y -- http://localhost:5173 / /katalog /print   # axe-core (butuh Chrome)
+npm run check                                  # svelte-check: error & warning Svelte
+npm run a11y -- http://localhost:5173          # axe-core: audit beranda
+npm run a11y -- http://localhost:5173 katalog print   # audit halaman lain
 ```
 
 `npm run a11y` memakai Chrome yang sudah terpasang (set `CHROME_PATH` bila lokasinya
-non-standar) dan gagal bila ada pelanggaran WCAG 2.1 A/AA. Untuk halaman admin,
-isi `A11Y_TOKEN` dan `A11Y_USER` dari respons `POST /api/auth/login`.
+non-standar) dan gagal bila ada pelanggaran WCAG 2.1 A/AA. Path ditulis tanpa garis
+miring awal agar aman di Git Bash Windows. Untuk halaman admin, isi `A11Y_TOKEN`
+dan `A11Y_USER` dari respons `POST /api/auth/login`.
 
 ---
 

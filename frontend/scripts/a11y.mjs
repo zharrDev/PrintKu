@@ -24,8 +24,13 @@ if (!executablePath) {
   process.exit(2);
 }
 
-const [base = 'http://localhost:5173', ...paths] = process.argv.slice(2);
-const targets = paths.length > 0 ? paths : ['/'];
+const [base = 'http://localhost:5173', ...rawPaths] = process.argv.slice(2);
+// Path boleh ditulis tanpa garis miring (`katalog`) supaya tidak diubah oleh
+// konversi path Git Bash/MSYS di Windows. Tanpa argumen, audit beranda saja.
+const targets = (rawPaths.length > 0 ? rawPaths : ['/']).map((p) => {
+  if (p === '' || p === '.' || p === '/') return '/';
+  return p.startsWith('/') ? p : `/${p}`;
+});
 
 const browser = await chromium.launch({ executablePath, headless: true });
 // axe-core butuh halaman dari browser.newContext(), bukan browser.newPage().
