@@ -338,6 +338,13 @@ func TestSmoke(t *testing.T) {
 		}
 		ok("order jasa print dibuat")
 
+		// Keamanan bisnis: spesifikasi job terkunci setelah masuk order.
+		st, _ = api("PATCH", "/api/print-jobs/"+printJobID, map[string]any{"copies": 9}, token)
+		if st != 409 {
+			t.Fatalf("spec job tidak terkunci setelah order: %d", st)
+		}
+		ok("print job terkunci setelah masuk pesanan (409)")
+
 		api("POST", "/api/payments/webhook", map[string]any{"orderId": orderID, "status": "success"}, token)
 
 		// buka websocket dengan autentikasi JWT lalu picu perubahan status

@@ -341,6 +341,18 @@ func (s *Server) patchPrintJob(c *gin.Context) {
 		return
 	}
 
+	// Spesifikasi hanya boleh diubah selama job masih draft (belum ikut
+	// order). Setelah masuk order, total pesanan sudah terkunci di checkout —
+	// perubahan di sini akan membuat harga job tidak sinkron dengan order.
+	if v := toStr(job["order_id"]); v != "" {
+		c.JSON(http.StatusConflict, gin.H{"error": "Spesifikasi tidak bisa diubah karena print job sudah masuk pesanan"})
+		return
+	}
+	if st := toStr(job["status"]); st != "menunggu" {
+		c.JSON(http.StatusConflict, gin.H{"error": "Spesifikasi tidak bisa diubah karena status print job sudah '" + st + "'"})
+		return
+	}
+
 	var body struct {
 		ColorMode         string `json:"colorMode"`
 		PaperSize         string `json:"paperSize"`
