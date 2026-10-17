@@ -32,7 +32,13 @@ const targets = (rawPaths.length > 0 ? rawPaths : ['/']).map((p) => {
   return p.startsWith('/') ? p : `/${p}`;
 });
 
-const browser = await chromium.launch({ executablePath, headless: true });
+// `--no-proxy-server` mencegah proxy sistem (VPN/monitoring) menggantung
+// request Chromium ke localhost sehingga navigasi selalu timeout.
+const browser = await chromium.launch({
+  executablePath,
+  headless: true,
+  args: ['--no-proxy-server'],
+});
 // axe-core butuh halaman dari browser.newContext(), bukan browser.newPage().
 const context = await browser.newContext({ viewport: { width: 1280, height: 900 } });
 
