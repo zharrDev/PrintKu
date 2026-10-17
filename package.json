@@ -10,6 +10,7 @@
     "dev:frontend": "npm --prefix frontend run dev",
     "dev": "concurrently -n API,WEB -c yellow,cyan \"npm run dev:backend\" \"npm run dev:frontend\"",
     "build": "npm --prefix frontend run build",
+    "check": "npm --prefix frontend run check",
     "build:backend": "npm --prefix backend run build",
     "start:backend": "npm --prefix backend run start",
     "smoke": "npm --prefix backend run smoke"
