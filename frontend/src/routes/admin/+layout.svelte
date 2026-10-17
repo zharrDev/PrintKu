@@ -90,7 +90,7 @@
     height: 36px;
     border-radius: var(--radius-sm);
     background: var(--primary);
-    color: var(--on-primary);
+    color: var(--on-accent);
     border: var(--border);
     box-shadow: var(--shadow-xs);
     display: inline-flex;

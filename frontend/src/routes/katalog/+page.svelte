@@ -106,7 +106,12 @@
         <span style="flex: 1"></span>
         <label class="row sort-label">
           <SlidersHorizontal size={16} />
-          <select class="input sort-select" bind:value={sort} onchange={applyFilters}>
+          <select
+            class="input sort-select"
+            aria-label="Urutkan produk"
+            bind:value={sort}
+            onchange={applyFilters}
+          >
             <option value="name">Urut: Nama</option>
             <option value="price_asc">Harga terendah</option>
             <option value="price_desc">Harga tertinggi</option>
@@ -263,7 +268,7 @@
   .pager-num-active,
   .pager-num-active:hover:not(:disabled) {
     background: var(--primary);
-    color: var(--on-primary);
+    color: var(--on-accent);
     border-color: var(--ink);
   }
   .pager-info { text-align: center; margin-top: var(--space-md); }

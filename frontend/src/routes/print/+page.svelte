@@ -401,7 +401,7 @@
   .opt-active {
     background: var(--primary);
     border-color: var(--ink);
-    color: var(--on-primary);
+    color: var(--on-accent);
     box-shadow: var(--shadow-md);
   }
   .duplex-btn {
@@ -424,7 +424,7 @@
   .duplex-btn.opt-active {
     background: var(--primary);
     border-color: var(--ink);
-    color: var(--on-primary);
+    color: var(--on-accent);
     box-shadow: var(--shadow-md);
   }
   .qty {

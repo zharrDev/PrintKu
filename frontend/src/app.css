@@ -17,6 +17,7 @@
   --primary-ink: #b63500;           /* oranye untuk TEKS kecil (5.9:1) */
   --primary-soft: #ffe7dc;          /* permukaan aksen hangat */
   --on-primary: #fffefb;
+  --on-accent: #201515;             /* teks di atas --primary: 5.4:1 (AA) */
 
   --ink: #201515;
   --ink-soft: #2f2a26;
@@ -147,7 +148,7 @@ button {
 
 ::selection {
   background: var(--primary);
-  color: var(--on-primary);
+  color: var(--on-accent);
 }
 
 /* Fokus keyboard: ring oranye + offset, selalu terlihat (termasuk di
@@ -443,12 +444,18 @@ button {
   transform: none;
 }
 
+/* Teks CTA memakai --on-accent, bukan --on-primary: putih di atas #ff4f00
+   hanya 3.27:1 (gagal AA), sedangkan ink di atas oranye 5.4:1. Warna brand
+   tetap #ff4f00 sesuai DESIGN-zapier.md. */
 .btn-primary {
   background: var(--primary);
-  color: var(--on-primary);
+  color: var(--on-accent);
 }
 .btn-primary:hover { background: var(--primary); }
-.btn-primary:active { background: var(--primary-deep); }
+.btn-primary:active {
+  background: var(--primary-deep);
+  color: var(--on-primary); /* putih di atas oranye tua 5.34:1 */
+}
 
 .btn-secondary {
   background: var(--ink);
@@ -695,7 +702,7 @@ label.field .label-text {
 }
 .badge-primary {
   background: var(--primary);
-  color: var(--on-primary);
+  color: var(--on-accent);
   border-color: var(--ink);
 }
 .badge-success { background: var(--success-soft); color: var(--ink); }
@@ -713,7 +720,8 @@ label.field .label-text {
   background: var(--primary);
   flex-shrink: 0;
 }
-.badge-dark .dot, .badge-primary .dot { background: var(--on-primary); }
+.badge-dark .dot { background: var(--on-primary); }
+.badge-primary .dot { background: var(--on-accent); }
 .badge-success .dot { background: var(--success); }
 .badge-warning .dot { background: var(--warning); }
 .badge-danger .dot { background: var(--danger); }
@@ -858,7 +866,7 @@ label.field .label-text {
 .nav-link[aria-current='page'] {
   background: var(--primary);
   border-color: var(--ink);
-  color: var(--on-primary);
+  color: var(--on-accent);
   box-shadow: var(--shadow-xs);
 }
 
@@ -882,7 +890,7 @@ label.field .label-text {
 .side-link[aria-current='page'] {
   background: var(--primary);
   border-color: var(--ink);
-  color: var(--on-primary);
+  color: var(--on-accent);
   box-shadow: var(--shadow-xs);
 }
 

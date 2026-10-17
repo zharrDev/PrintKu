@@ -99,7 +99,7 @@
     height: 36px;
     border-radius: var(--radius-sm);
     background: var(--primary);
-    color: var(--on-primary);
+    color: var(--on-accent);
     border: var(--border);
     box-shadow: var(--shadow-sm);
     font-weight: 700;
@@ -148,7 +148,7 @@
     height: 22px;
     border-radius: var(--radius-pill);
     background: var(--primary);
-    color: var(--on-primary);
+    color: var(--on-accent);
     border: var(--border);
     font-size: 12px;
     font-weight: 700;

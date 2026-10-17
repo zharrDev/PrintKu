@@ -321,7 +321,7 @@
   .method-active {
     border-color: var(--ink);
     background: var(--primary);
-    color: var(--on-primary);
+    color: var(--on-accent);
     box-shadow: var(--shadow-md);
   }
   .summary { position: sticky; top: 96px; }

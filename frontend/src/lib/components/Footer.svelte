@@ -64,7 +64,7 @@
     height: 36px;
     border-radius: var(--radius-sm);
     background: var(--primary);
-    color: var(--on-primary);
+    color: var(--on-accent);
     border: 2px solid var(--canvas-soft);
     font-weight: 700;
     font-size: 20px;

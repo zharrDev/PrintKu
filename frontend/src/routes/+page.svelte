@@ -81,7 +81,7 @@
         </div>
         <div class="mock-row row-between">
           <span class="body-sm text-body">Total estimasi</span>
-          <span class="display-sub-sm text-primary">Rp 2.000</span>
+          <span class="display-sub-sm text-primary-ink">Rp 2.000</span>
         </div>
         <button class="btn btn-primary" disabled>Lanjut ke Pembayaran</button>
         <span class="caption text-body-mid">Estimasi selesai ±30 menit setelah pembayaran dikonfirmasi.</span>
